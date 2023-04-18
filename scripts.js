@@ -21,7 +21,7 @@ async function fetchImageURLs() {
 
 function adjustNavBarOnScroll() {
 var navBar = document.querySelector('.nav-bar');
-var videoHeight = document.querySelector('.image-box').offsetHeight;
+var videoHeight = document.querySelector('video').offsetHeight;
 var scrollTop = window.scrollY;
 
 if (scrollTop <= videoHeight - navBar.offsetHeight) {
@@ -33,14 +33,15 @@ if (scrollTop <= videoHeight - navBar.offsetHeight) {
 
 function adjustNavBarOnResize() {
 var navBar = document.querySelector('.nav-bar');
-var videoHeight = document.querySelector('.image-box').offsetHeight;
+var videoHeight = document.querySelector('video').offsetHeight;
 
 if (window.scrollY <= videoHeight - navBar.offsetHeight) {
   navBar.style.top = `${videoHeight - window.scrollY - navBar.offsetHeight}px`;
 }
 }
 
-
+window.addEventListener('scroll', adjustNavBarOnScroll);
+window.addEventListener('resize', adjustNavBarOnResize);
 
 function createGridItem(imageURL) {
   const gridItem = document.createElement('div');
@@ -88,5 +89,3 @@ function init() {
 }
 
 init();
-window.addEventListener('scroll', adjustNavBarOnScroll);
-window.addEventListener('resize', adjustNavBarOnResize);
