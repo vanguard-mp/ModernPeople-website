@@ -116,17 +116,17 @@ a:hover {
 
 .image-box {
   position: absolute;
-  top: 10px;
+  top: 30px;
   left: 30px;
-  margin-bottom: 50px;
+  
  
-  width: calc(100vw - 60px);
-  height: 100%;
+  width: calc(100% - 60px);
+  height: calc(100% - 150px);
   z-index: -1;
   background-image: url('/images/reelPlay.jpg');
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: cover;
   /*background-attachment: fixed;*/
 }
 
@@ -142,17 +142,18 @@ a:hover {
 .nav-bar {
   position: fixed;
   bottom: 0;
-  height: 100px;
+  height: 60px;
   width: 100%;
-  margin-bottom: 50px;
+  /*margin-top: 60px;*/
+  margin-bottom: 45px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 40px 0 40px;
   box-sizing: border-box;
-  background-color: transparent;
-  transition: all 0.3s ease;
+  background-color: transparent;/*#E8E8E2;*/
+  transition: all 0.1s ease;
 }
 
 .nav-bar.scroll-past-video {
@@ -178,9 +179,9 @@ a:hover {
 .orange-strip {
   position: absolute;
   left: -38px;
-  top: -5px;
+  top: -15px;
   width: 10px;
-  height: 110%;
+  height: 150%;
   background-color: #F94A1E;
 }
 .left-column img {
