@@ -112,16 +112,20 @@ a:hover {
 }
 
 
-
+.main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
 .image-box {
-  position: absolute;
+  position: relative;
   top: 30px;
   left: 30px;
   
  
-  width: calc(100% - 60px);
-  height: calc(100% - 150px);
+  width: calc(100vw - 60px);
+  height: calc(100vh - 135px);
   z-index: -1;
   background-image: url('/images/reelPlay.jpg');
   background-repeat: no-repeat;
@@ -145,7 +149,7 @@ a:hover {
   height: 60px;
   width: 100%;
   /*margin-top: 60px;*/
-  margin-bottom: 45px;
+  margin-bottom: 30px;
 
   display: flex;
   align-items: center;
@@ -197,9 +201,10 @@ a:hover {
 }
 .grid-container {
   margin: 0 20px;
+  
 }
 #grid {
-  margin-top: calc(100vh - 40px);
+  margin-top: -30px;
   line-height: 0;
   -webkit-column-count: 5;
   -webkit-column-gap: 0px;
