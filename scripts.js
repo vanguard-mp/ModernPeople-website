@@ -20,25 +20,31 @@ async function fetchImageURLs() {
 }
 
 function adjustNavBarOnScroll() {
-var navBar = document.querySelector('.nav-bar');
-var videoHeight = document.querySelector('.image-box').offsetHeight;
-var scrollTop = window.scrollY;
+  var navBar = document.querySelector('.nav-bar');
+  var videoHeight = document.querySelector('.image-box').offsetHeight;
+  var scrollTop = window.scrollY;
 
-if (scrollTop <= videoHeight - navBar.offsetHeight) {
-  navBar.style.top = `${videoHeight - scrollTop - navBar.offsetHeight}px`;
-} else {
-  navBar.style.top = '0';
-}
+  if (scrollTop <= videoHeight - navBar.offsetHeight + 90) {
+    navBar.style.position = 'absolute';
+    navBar.style.bottom = `30px`;
+    navBar.style.top = '';
+  } else {
+    navBar.style.position = 'fixed';
+    navBar.style.top = '0';
+    navBar.style.bottom = ''; 
+  }
 }
 
 function adjustNavBarOnResize() {
-var navBar = document.querySelector('.nav-bar');
-var videoHeight = document.querySelector('.image-box').offsetHeight;
+  var navBar = document.querySelector('.nav-bar');
+  var videoHeight = document.querySelector('.image-box').offsetHeight;
 
-if (window.scrollY <= videoHeight - navBar.offsetHeight) {
-  navBar.style.top = `${videoHeight - window.scrollY - navBar.offsetHeight}px`;
+  if (window.scrollY <= videoHeight - navBar.offsetHeight) {
+    navBar.style.bottom = `30px`;
+  }
 }
-}
+
+
 
 
 
@@ -73,19 +79,51 @@ function randomizeArray(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
+function createSlideshow(images) {
+  if (images.length === 0) {
+    return [];
+  }
+
+  const imageBox = document.querySelector(".image-box");
+  let currentIndex = 0;
+
+  function updateBackgroundImage() {
+    const imageUrl = images[currentIndex];
+    imageBox.style.backgroundImage = `url(${imageUrl})`;
+    currentIndex = (currentIndex + 1) % images.length;
+  }
+
+  updateBackgroundImage();
+  setInterval(updateBackgroundImage, 3000); // Change image every 3 seconds
+
+  return images;
+}
 
 function init() {
-  fetchImageURLs().then(imageURLs => {
-    const grid = document.getElementById('grid');
-    const randomizedURLs = randomizeArray(imageURLs);
-    randomizedURLs.forEach(imageURL => {
-      const gridItem = createGridItem(imageURL);
-      grid.appendChild(gridItem);
+  fetchImageURLs()
+    .then((imageURLs) => {
+      console.log('All imageURLs:', imageURLs); // Add this line to log all imageURLs
+
+      const grid = document.getElementById("grid");
+      const randomizedURLs = randomizeArray(imageURLs);
+      const slideshowImages = randomizedURLs.filter((url) =>
+        url.split("/").pop().startsWith("_") // Correct the filter condition
+      );
+
+      console.log('Slideshow Images:', slideshowImages); // Add this line to log slideshow images
+
+      createSlideshow(slideshowImages);
+
+      randomizedURLs.forEach((imageURL) => {
+        const gridItem = createGridItem(imageURL);
+        grid.appendChild(gridItem);
+      });
+    })
+    .catch((error) => {
+      console.error("Error:", error);
     });
-  }).catch(error => {
-    console.error('Error:', error);
-  });
 }
+
 
 init();
 window.addEventListener('scroll', adjustNavBarOnScroll);
