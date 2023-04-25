@@ -139,6 +139,24 @@ a:hover {
   background-size: cover;
   /*background-attachment: fixed;*/
 }
+.image-box-original {
+  position: relative;
+  /*margin-inline: 0;*/
+ 
+  margin-top: 60px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  width: calc(100vw - 60px);
+  height: calc(100vh - 125px);
+  z-index: -1;
+  background-image: url('/images/reelPlay.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  /*background-attachment: fixed;*/
+}
+
 
 .video-link {
   display: block;
