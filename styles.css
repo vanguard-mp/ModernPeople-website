@@ -150,7 +150,7 @@ a:hover {
   width: calc(100vw - 60px);
   height: calc(100vh - 125px);
   z-index: -1;
-  background-image: url('/images/reelPlay.jpg');
+  background-image: url('https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Video-reel-image-box/images/reelPlay.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
