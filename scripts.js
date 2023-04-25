@@ -19,6 +19,28 @@ async function fetchImageURLs() {
   }
 }
 
+async function fetchSlideshowImageURLs() {
+  const folderPath = 'images/images-slideshow';
+  const repoName = 'ModernPeople-website';
+  const userName = 'vanguard-mp';
+  
+  try {
+    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}`);
+    
+    if (!response.ok) {
+      throw new Error(`Error fetching image URLs: ${response.statusText}`);
+    }
+  
+    const data = await response.json();
+    const imageURLs = data.map(file => file.download_url);
+    return imageURLs;
+  } catch (error) {
+    console.error('Error:', error);
+    return [];
+  }
+}
+
+
 function adjustNavBarOnScroll() {
   var navBar = document.querySelector('.nav-bar');
   var videoHeight = document.querySelector('.image-box').offsetHeight;
@@ -99,29 +121,25 @@ function createSlideshow(images) {
   return images;
 }
 
-function init() {
-  fetchImageURLs()
-    .then((imageURLs) => {
-      console.log('All imageURLs:', imageURLs); // Add this line to log all imageURLs
+async function init() {
+  try {
+    const [imageURLs, slideshowImageURLs] = await Promise.all([
+      fetchImageURLs(),
+      fetchSlideshowImageURLs(),
+    ]);
 
-      const grid = document.getElementById("grid");
-      const randomizedURLs = randomizeArray(imageURLs);
-      const slideshowImages = randomizedURLs.filter((url) =>
-        url.split("/").pop().startsWith("_") // Correct the filter condition
-      );
+    const grid = document.getElementById("grid");
+    const randomizedURLs = randomizeArray(imageURLs);
 
-      console.log('Slideshow Images:', slideshowImages); // Add this line to log slideshow images
-
-      createSlideshow(slideshowImages);
-
-      randomizedURLs.forEach((imageURL) => {
-        const gridItem = createGridItem(imageURL);
-        grid.appendChild(gridItem);
-      });
-    })
-    .catch((error) => {
-      console.error("Error:", error);
+    randomizedURLs.forEach((imageURL) => {
+      const gridItem = createGridItem(imageURL);
+      grid.appendChild(gridItem);
     });
+
+    createSlideshow(slideshowImageURLs);
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 
