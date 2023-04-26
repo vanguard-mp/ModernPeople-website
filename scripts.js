@@ -68,20 +68,17 @@ function adjustNavBarOnResize() {
 
 
 function toggleImageBox() {
-  const imageBox = document.querySelector('.image-box');
-  const copyContainer = document.querySelector('.copy-container');
-  const helloButton = document.querySelector('.hello-button');
+  var imageBox = document.querySelector(".image-box");
+  var helloBox = document.querySelector(".hello-box");
+  
+  imageBox.style.display = imageBox.style.display === 'none' ? 'block' : 'none';
 
-  if (imageBox.classList.contains('hidden')) {
-    imageBox.classList.remove('hidden');
-    copyContainer.classList.add('hidden');
-    helloButton.innerText = 'Goodbye';
-  } else {
-    imageBox.classList.add('hidden');
-    copyContainer.classList.remove('hidden');
-    helloButton.innerText = 'Hello';
-  }
+  
+  // Toggle hello-box visibility when image-box visibility changes
+  helloBox.style.display = helloBox.style.display === 'none' ? 'block' : 'none';
+
 }
+
 
 
 function createGridItem(imageURL) {
@@ -160,7 +157,23 @@ async function init() {
 init();
 window.addEventListener('scroll', adjustNavBarOnScroll);
 window.addEventListener('resize', adjustNavBarOnResize);
-window.addEventListener('DOMContentLoaded', function() {
-  const helloButton = document.querySelector('.hello-button');
-  helloButton.addEventListener('click', toggleImageBox);
-});
+/*
+document.addEventListener("DOMContentLoaded", function () {
+  var imageBox = document.querySelector(".image-box");
+  var helloBox = document.querySelector(".hello-box");
+  var navBar = document.querySelector(".nav-bar");
+
+  var observer = new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting) {
+      navBar.classList.remove("scroll-past-video");
+      imageBox.classList.remove("hidden");
+      helloBox.classList.add("hidden");
+    } else {
+      navBar.classList.add("scroll-past-video");
+      imageBox.classList.add("hidden");
+      helloBox.classList.remove("hidden");
+    }
+  });
+
+  observer.observe(imageBox);
+});*/

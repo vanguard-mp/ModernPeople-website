@@ -156,10 +156,21 @@ a:hover {
   background-size: cover;
   /*background-attachment: fixed;*/
 }
-.copy-container {
+.hello-box{
+  background-color: white;
+  color: black;
+  padding: 20px;
+  
+}
+
+.hello-section{
   /*background-color: white;*/
   color: black;
   padding: 20px;
+  
+}
+.hidden {
+  display: none;
 }
 .motion {
   text-align: right;
