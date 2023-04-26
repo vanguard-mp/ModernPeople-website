@@ -156,7 +156,11 @@ a:hover {
   background-size: cover;
   /*background-attachment: fixed;*/
 }
-
+.copy-container {
+  /*background-color: white;*/
+  color: black;
+  padding: 20px;
+}
 .motion {
   text-align: right;
   font-family: 'Neue Machina', sans-serif;

@@ -67,7 +67,21 @@ function adjustNavBarOnResize() {
 }
 
 
+function toggleImageBox() {
+  const imageBox = document.querySelector('.image-box');
+  const copyContainer = document.querySelector('.copy-container');
+  const helloButton = document.querySelector('.hello-button');
 
+  if (imageBox.classList.contains('hidden')) {
+    imageBox.classList.remove('hidden');
+    copyContainer.classList.add('hidden');
+    helloButton.innerText = 'Goodbye';
+  } else {
+    imageBox.classList.add('hidden');
+    copyContainer.classList.remove('hidden');
+    helloButton.innerText = 'Hello';
+  }
+}
 
 
 function createGridItem(imageURL) {
@@ -146,3 +160,7 @@ async function init() {
 init();
 window.addEventListener('scroll', adjustNavBarOnScroll);
 window.addEventListener('resize', adjustNavBarOnResize);
+window.addEventListener('DOMContentLoaded', function() {
+  const helloButton = document.querySelector('.hello-button');
+  helloButton.addEventListener('click', toggleImageBox);
+});
