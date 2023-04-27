@@ -1,0 +1,21 @@
+main container
+    image-box (id imageBox1)
+    nav-bar
+        left-column 
+            orange-strip
+            (logo)
+        middle-column
+            (twitter)[text]
+            (linkedin)[text]
+        right-column
+            btn
+            btn2
+    hello-box (id helloBox1)
+        hello-text (id helloText)
+        info-btn
+        hello-form (id helloForm)
+            contact-form (id contactForm)
+    grid-container
+        grid (id grid)
+    image-box-original
+footer

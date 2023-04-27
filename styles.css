@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   }
-
   :root {
     --github-link: url('https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Action/');
     --MP-orange: #F94A1E;
@@ -31,7 +30,6 @@
   font-style: normal;
   src: url('https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Action/fonts/PPNeueMachina-InktrapRegular.woff') format('woff');
 }
-
 /* Light weight; Normal style */
 @font-face {
   font-family: 'Neue Montreal';
@@ -46,14 +44,10 @@
   font-style: normal;
   src: url('https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Action/fonts/PPNeueMontreal-Book.woff') format('woff');
 }
-
-
 body {
   background-color: var(--MP-BG-color);
   color: var(--MP-text-color);
 }
-
-
 bodycopy {
   font-size: 1.4rem;
   font-weight: 300;
@@ -63,13 +57,10 @@ bodycopy {
   line-height: 1.2;
   font-variation-settings: 'slnt' 0, 'MONO' 0;
 }
-
 bodycopy a {
   color: var(--MP-text-color);
   text-decoration: none;
 }
-
-
 h1 {
   font-family: 'Neue Machina', sans-serif;
   font-style: normal;
@@ -81,14 +72,12 @@ h1 {
   color: var(--MP-text-color);
   font-variation-settings: 'slnt' 0, 'MONO' 0;
 }
-
 h1 a.hover {
   color: var(--MP-orange);
 }
 h1 a {
   color: var(--MP-orange);
 }
-
 h2 {
   font-family: "Neue Machina", Icons;
   font-style: normal;
@@ -100,11 +89,9 @@ h2 {
   line-height: 1.2;
   font-variation-settings: 'slnt' 0, 'MONO' 0;
   }
-
 h2 a {
   color: var(--MP-text-color);
 }
-
 small {
   display: inline-block;
   font-size: 1.2vw;
@@ -115,21 +102,14 @@ small {
   color: var(--MP-text-color);
   font-variation-settings: 'slnt' 0, 'MONO' 1;
 }
-
-
-
-
-
 a {
   text-decoration: none;
   color: var(--MP-text-color);
 }
-
 a:hover {
   color:var(--MP-orange);
 
 }
-
 .btn {
   
   
@@ -142,8 +122,6 @@ a:hover {
   cursor: pointer;
   display: inline-block;
 }
-
-/* On mouse-over */
 .btn:hover {color: var(--MP-orange);}
 
 .btn2 {
@@ -159,7 +137,6 @@ a:hover {
   display: inline-block;
 }
 
-/* On mouse-over */
 .btn:hover {color: var(--MP-orange);}
 
 .info-btn {
@@ -177,7 +154,6 @@ a:hover {
   margin-left: 30px;
 }
 
-/* On mouse-over */
 .info-btn:hover {color: var(--MP-orange);background-repeat: repeat;}
 
 .main-container {
@@ -185,7 +161,6 @@ a:hover {
   flex-direction: column;
   min-height: 100vh;
 }
-
 .image-box {
   position: relative;
   /*margin-inline: 0;*/
@@ -202,7 +177,6 @@ a:hover {
   background-size: cover;
   /*background-attachment: fixed;*/
 }
-
 .under{
   text-decoration: underline;
   text-decoration-thickness: 4px;
@@ -254,7 +228,6 @@ a:hover {
   display: flex;
   flex-direction: row;
 }
-
 .skull{
   display:flex;
   
@@ -264,7 +237,6 @@ a:hover {
 
   
 }
-
 .skull img {
   width: 100%;
   height: 100%;
@@ -283,8 +255,6 @@ a:hover {
   
   
 }
-
-
 .hidden {
   display: none;
 }
@@ -309,7 +279,6 @@ a:hover {
   bottom: 0;
   left: 0;
 }
-
 .nav-bar {
   position: fixed;
   bottom: 30px;
@@ -329,27 +298,23 @@ a:hover {
   opacity: 0.96;
   transition: all 0.1s ease;
 }
-
 .nav-bar.scroll-past-video {
   top: 0;
   bottom: auto;
   background-color: white;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
 }
-
 .nav-bar.pinned {
   position: fixed;
   top: 0;
   background-color: white;
   
 }
-
 .left-column {
   position: relative; /* Add relative positioning */
   height: 40px;
   margin-left: -10px;
 }
-
 .orange-strip {
   position: absolute;
   left: -30px;
@@ -364,7 +329,6 @@ a:hover {
   height: 90%;
   object-fit: contain;
 }
-
 .middle-column {
   display: flex;
   align-items: center;
@@ -392,27 +356,21 @@ a:hover {
   column-gap: 0px;
 
 }
-
 #grid .grid-item {
   width: 100%;
   height: auto;
 }
-
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
 .header__title {
   margin: 0;
 }
-
 .header__contact {
   margin: 0;
 }
-
 .contact-link {
   color: var(--MP-orange);
   text-decoration: none;
@@ -423,23 +381,17 @@ a:hover {
   font-weight: 400;
   font-variation-settings: 'slnt' 0, 'MONO' 1;
 }
-
-
-
 .contact-form {
   margin-top: 20px;
 }
-
 .hidden {
   display: none;
 }
-
 .move-up {
   animation-name: move-up;
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
 }
-
 @keyframes move-up {
   0% {
     transform: translateY(0);
@@ -451,7 +403,6 @@ a:hover {
 .contact-form {
   display: none;
 }
-
 
 @media (max-width: 1200px) {
   #grid {

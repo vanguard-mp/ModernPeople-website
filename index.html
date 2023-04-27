@@ -9,7 +9,7 @@
 <body>
 <div class="main-container">
     <div class="image-box" id="imageBox1">
-       
+       <!-- The images will be dynamically added here -->
     </div>
     <div class="nav-bar">
         <div class="left-column">
@@ -36,35 +36,35 @@
           <p><small >Fusing <span class="strike">design thinking</span> and <span class="strike">motion storytelling</span>, we build, deploy, and amplify <span class="over">differentiated</span> brands for <span class="under">everywhere</span> they show up.</small></p>
         </div>
         <button class="info-btn"  onclick="toggleContact();">hello@modernpeople.io</button>
-         <form class="contact-form" id="contactForm">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-          
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-          
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
-          
-            <button type="submit">Send</button>
-          </form>
+        <div class="hello-form" id="helloForm">
+            <form class="contact-form" id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                
+                <button type="submit">Send</button>
+            </form>
+        </div>
     </div>
+    <div class="grid-container">
+        <div class="grid" id="grid">
+            <!-- The images will be dynamically added here -->
+        </div>
+    </div>
+    <div class="image-box-original">
+        <!-- playback image for motion reel -->
+    </div>
+</div>
+<div class="footer">
+    <!-- Optional Footer -->
 </div>
 
-<div class="grid-container">
-    <div class="grid" id="grid">
-   
-        <!-- The images will be dynamically added here -->
-    </div>
-</div>
-<div class="image-box-original">
-    
-</div>
-</div>
 <!-- Include the necessary libraries -->
-<div class="footer">
-    
-</div>
 
 <script src="scripts.js"></script>
 </body>

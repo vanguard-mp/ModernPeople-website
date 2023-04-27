@@ -40,12 +40,10 @@ async function fetchSlideshowImageURLs() {
   }
 }
 
-
 function adjustNavBarOnScroll() {
   var navBar = document.querySelector('.nav-bar');
   var videoHeight = document.querySelector('.image-box').offsetHeight;
   var scrollTop = window.scrollY;
-
   if (scrollTop <= videoHeight - navBar.offsetHeight + 90) {
     navBar.style.position = 'absolute';
     navBar.style.bottom = `30px`;
@@ -60,20 +58,15 @@ function adjustNavBarOnScroll() {
 function adjustNavBarOnResize() {
   var navBar = document.querySelector('.nav-bar');
   var videoHeight = document.querySelector('.image-box').offsetHeight;
-
   if (window.scrollY <= videoHeight - navBar.offsetHeight) {
     navBar.style.bottom = `30px`;
   }
 }
 
-
 function toggleImageBox() {
   var x = document.getElementById("helloBox1");
   var y = document.getElementById("imageBox1");
-  
   x.classList.toggle("show"); /* Toggle the .show class on and off */
-
-  
   if (y.style.display === "none") {
     y.style.display = "block";
   } else {
@@ -81,20 +74,18 @@ function toggleImageBox() {
   }
 }
 
+function toggleContact() {
+  let helloText, contactForm;
+  helloText = document.querySelector(".hello-text");
+  contactForm = document.querySelector(".contact-form"); 
+  helloText.classList.add('move-up');
+  /*contactForm.classList.remove('hidden');*/
+}
 
-  function toggleContact() {
-    let helloText, contactForm;
-    
-    helloText = document.querySelector(".hello-text");
-    contactForm = document.querySelector(".contact-form"); 
-    helloText.classList.add('move-up');
-    /*contactForm.classList.remove('hidden');*/
-  }
+function moveParts() {
+  document.querySelector('.image-box-original').scrollIntoView();
+}
 
-  function moveParts() {
-    document.querySelector('.image-box-original').scrollIntoView();
-    
-  }
 function createGridItem(imageURL) {
   const gridItem = document.createElement('div');
   gridItem.className = 'grid-item';
@@ -120,8 +111,6 @@ function isInViewport(element) {
   );
 }
 
-
-
 function randomizeArray(array) {
   return array.sort(() => Math.random() - 0.5);
 }
@@ -130,10 +119,9 @@ function createSlideshow(images) {
   if (images.length === 0) {
     return [];
   }
-
   const imageBox = document.querySelector(".image-box");
   let currentIndex = 0;
-
+  
   function updateBackgroundImage() {
     const imageUrl = images[currentIndex];
     imageBox.style.backgroundImage = `url(${imageUrl})`;
@@ -142,7 +130,6 @@ function createSlideshow(images) {
 
   updateBackgroundImage();
   setInterval(updateBackgroundImage, 3000); // Change image every 3 seconds
-
   return images;
 }
 
@@ -167,10 +154,7 @@ async function init() {
   }
 }
 
-
 init();
-
-
 
 const infoBtn = document.querySelector('.info-btn');
 infoBtn.addEventListener('click', toggleContact);
@@ -179,24 +163,3 @@ movingParts.addEventListener('click', moveParts);
 
 window.addEventListener('scroll', adjustNavBarOnScroll);
 window.addEventListener('resize', adjustNavBarOnResize);
-
-/*
-document.addEventListener("DOMContentLoaded", function () {
-  var imageBox = document.querySelector(".image-box");
-  var helloBox = document.querySelector(".hello-box");
-  var navBar = document.querySelector(".nav-bar");
-
-  var observer = new IntersectionObserver(function (entries) {
-    if (entries[0].isIntersecting) {
-      navBar.classList.remove("scroll-past-video");
-      imageBox.classList.remove("hidden");
-      helloBox.classList.add("hidden");
-    } else {
-      navBar.classList.add("scroll-past-video");
-      imageBox.classList.add("hidden");
-      helloBox.classList.remove("hidden");
-    }
-  });
-
-  observer.observe(imageBox);
-});*/
