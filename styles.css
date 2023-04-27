@@ -2,26 +2,33 @@
   margin: 0;
   padding: 0;
   }
+
+  :root {
+    --github-link: url('https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Action/');
+    --MP-orange: #F94A1E;
+    --MP-BG-color: #E8E8E2;
+    --MP-text-color: rgba(0, 0, 0, 0.75);
+  }
 /* Thin weight; Normal style */
 @font-face {
   font-family: 'Neue Machina';
   font-weight: 200;
   font-style: normal;
-  src: url('https://files.cargocollective.com/c1817175/PPNeueMachina-InktrapLight.woff') format('woff');
+  src: url(--github-link)+'fonts/PPNeueMachina-InktrapThin.woff') format('woff');
 }
 /* Light weight; Normal style */
 @font-face {
   font-family: 'Neue Machina';
   font-weight: 300;
   font-style: normal;
-  src: url('https://files.cargocollective.com/c1817175/PPNeueMachina-InktrapLight.woff') format('woff');
+  src: url(var(--github-link)+'fonts/PPNeueMachina-InktrapLight.woff') format('woff');
 }
 /* Regular weight; Normal style */
 @font-face {
   font-family: 'Neue Machina';
   font-weight: 400;
   font-style: normal;
-  src: url('https://files.cargocollective.com/c1817175/PPNeueMachina-InktrapRegular.woff') format('woff');
+  src: url(var(--github-link)+'fonts/PPNeueMachina-InktrapRegular.woff') format('woff');
 }
 
 /* Light weight; Normal style */
@@ -29,27 +36,27 @@
   font-family: 'Neue Montreal';
   font-weight: 300;
   font-style: normal;
-  src: url('https://files.cargocollective.com/c1817175/PPNeueMontreal-Light.woff') format('woff');
+  src: url(var(--github-link)+'fonts/PPNeueMontreal-Light.woff') format('woff');
 }
 /* Regular weight; Normal style */
 @font-face {
   font-family: 'Neue Montreal';
   font-weight: 400;
   font-style: normal;
-  src: url('https://files.cargocollective.com/c1817175/PPNeueMontreal-Book.woff') format('woff');
+  src: url(var(--github-link)+'fonts/PPNeueMontreal-Book.woff') format('woff');
 }
 
 
 body {
-  background-color: #E8E8E2;
-  color: #000;
+  background-color: var(--MP-BG-color);
+  color: var(--MP-text-color);
 }
 
 
 bodycopy {
   font-size: 1.4rem;
   font-weight: 300;
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--MP-text-color);
   font-family: "Neue Montreal", Icons;
   font-style: normal;
   line-height: 1.2;
@@ -57,7 +64,7 @@ bodycopy {
 }
 
 bodycopy a {
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--MP-text-color);
   text-decoration: none;
 }
 
@@ -70,15 +77,15 @@ h1 {
   margin: 0;
   font-size: 3rem;
   line-height: 1;
-  color: rgba(0, 0, 0, 0.5);
+  color: var(--MP-text-color);
   font-variation-settings: 'slnt' 0, 'MONO' 0;
 }
 
 h1 a.hover {
-  color: #F94A1E;
+  color: var(--MP-orange);
 }
 h1 a {
-  color: #F94A1E;
+  color: var(--MP-orange);
 }
 
 h2 {
@@ -87,14 +94,14 @@ h2 {
   font-weight: 400;
   padding: 0;
   margin: 0;
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--MP-text-color)
   font-size: 2.2rem;
   line-height: 1.2;
   font-variation-settings: 'slnt' 0, 'MONO' 0;
   }
 
 h2 a {
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--MP-text-color);
 }
 
 small {
@@ -104,7 +111,7 @@ small {
   font-family: "Neue Montreal", Icons;
   font-style: normal;
   font-weight: 400;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--MP-text-color);
   font-variation-settings: 'slnt' 0, 'MONO' 1;
 }
 
@@ -114,18 +121,18 @@ small {
 
 a {
   text-decoration: none;
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--MP-text-color);
 }
 
 a:hover {
-  color: #F94A1E;
+  color:var(--MP-orange);
 
 }
 
 .btn {
   border: none;
   background-color: transparent;
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--MP-text-color);
   font-family: 'Neue Machina', sans-serif;
   padding: 14px 28px;
   font-size: 16px;
@@ -134,7 +141,7 @@ a:hover {
 }
 
 /* On mouse-over */
-.btn:hover {color: #F94A1E;}
+.btn:hover {color: var(--MP-orange);}
 
 .main-container {
   display: flex;
@@ -169,7 +176,7 @@ a:hover {
   width: calc(100vw - 60px);
   height: calc(100vh - 125px);
   z-index: -1;
-  background-image: url('https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Video-reel-image-box/images/reelPlay.jpg');
+  background-image: url(var(--github-link)+'images/reelPlay.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -177,14 +184,14 @@ a:hover {
 }
 .hello-box{
   background-color: white;
-  color: black;
+  color: var(--MP-text-color);
   padding: 20px;
   
 }
 
 .hello-section{
   /*background-color: white;*/
-  color: black;
+  color: var(--MP-text-color);
   padding: 20px;
   
 }
@@ -201,7 +208,7 @@ a:hover {
   margin-right: 30px;
   font-size: 1.1rem;
   line-height: 1;
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--MP-text-color)
   font-variation-settings: 'slnt' 0, 'MONO' 0;
 }
 .video-link {
@@ -227,7 +234,7 @@ a:hover {
   justify-content: space-between;
   padding: 0 40px 0 40px;
   box-sizing: border-box;
-  background-color: #E8E8E2;
+  background-color: var(--MP-BG-color);
   opacity: 0.96;
   transition: all 0.1s ease;
 }
@@ -243,7 +250,7 @@ a:hover {
   position: fixed;
   top: 0;
   background-color: white;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  
 }
 
 .left-column {
@@ -258,7 +265,7 @@ a:hover {
   bottom: -10px;
   width: 10px;
   height: 65px;
-  background-color: #F94A1E;
+  background-color: var(--MP-orange);
 
 }
 .left-column img {
