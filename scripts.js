@@ -68,15 +68,18 @@ function adjustNavBarOnResize() {
 
 
 function toggleImageBox() {
-  var imageBox = document.querySelector(".image-box");
-  var helloBox = document.querySelector(".hello-box");
-  
-  imageBox.style.display = imageBox.style.display === 'none' ? 'block' : 'none';
-
-  
-  // Toggle hello-box visibility when image-box visibility changes
-  helloBox.style.display = helloBox.style.display === 'none' ? 'block' : 'none';
-
+  var x = document.getElementById("helloBox1");
+  var y = document.getElementById("imageBox1");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+  if (y.style.display === "none") {
+    y.style.display = "block";
+  } else {
+    y.style.display = "none";
+  }
 }
 
 
