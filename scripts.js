@@ -82,6 +82,19 @@ function toggleImageBox() {
 }
 
 
+  function toggleContact() {
+    let helloText, contactForm;
+    
+    helloText = document.querySelector(".hello-text");
+    contactForm = document.querySelector(".contact-form"); 
+    helloText.classList.add('move-up');
+    /*contactForm.classList.remove('hidden');*/
+  }
+
+  function moveParts() {
+    document.querySelector('.image-box-original').scrollIntoView();
+    
+  }
 function createGridItem(imageURL) {
   const gridItem = document.createElement('div');
   gridItem.className = 'grid-item';
@@ -156,8 +169,17 @@ async function init() {
 
 
 init();
+
+
+
+const infoBtn = document.querySelector('.info-btn');
+infoBtn.addEventListener('click', toggleContact);
+const movingParts = document.querySelector('.btn2');
+movingParts.addEventListener('click', moveParts);
+
 window.addEventListener('scroll', adjustNavBarOnScroll);
 window.addEventListener('resize', adjustNavBarOnResize);
+
 /*
 document.addEventListener("DOMContentLoaded", function () {
   var imageBox = document.querySelector(".image-box");
