@@ -2,7 +2,13 @@
   margin: 0;
   padding: 0;
   }
-
+/* Thin weight; Normal style */
+@font-face {
+  font-family: 'Neue Machina';
+  font-weight: 200;
+  font-style: normal;
+  src: url('https://files.cargocollective.com/c1817175/PPNeueMachina-InktrapLight.woff') format('woff');
+}
 /* Light weight; Normal style */
 @font-face {
   font-family: 'Neue Machina';
