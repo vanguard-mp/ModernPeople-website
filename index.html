@@ -6,70 +6,92 @@
   <title>Image Grid</title>
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
+
 <body>
-<div class="main-container">
-    <div class="image-box" id="imageBox1">
-       <!-- The images will be dynamically added here -->
+    <!-- The main container of the page -->
+
+    <div class="main-container">
+
+        <!-- The image box that will be toggled -->
+
+        <div class="image-box" id="imageBox1">
+        <!-- The images will be dynamically added here -->
+        </div>
+
+        <!-- The hello box that will be toggled -->
+
+        <div class="hello-box" id="helloBox1">
+            <div class="hello-text" id="helloText">
+            <h1 >Modern People is</h1>
+            <h1 >an <span class="over">interdisciplinary </span> </h1> 
+            <h1 >design studio</h1>
+            <p><small >Creating the future with <span class="under">bold and functional </span> visual tools.</small></p>
+            <p><small >We thrive working with innovative partners who seek  <span class="strike">thinkers and makers </span> within one creative company.</small></p>
+            <p><small >Fusing <span class="strike">design thinking</span> and <span class="strike">motion storytelling</span>, we build, deploy, and amplify <span class="over">differentiated</span> brands for <span class="under">everywhere</span> they show up.</small></p>
+            </div>
+            <button class="info-btn"  onclick="toggleContact();">hello@modernpeople.io</button>
+            <div class="hello-form" id="helloForm">
+                <form class="contact-form" id="contactForm">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required></textarea>
+                    
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+        <!-- Navigation bar-->
+
+        <div class="nav-bar">
+            <div class="left-column">
+                <div class="orange-strip"></div>
+                <img src="https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Video-reel-image-box/images/MP-Logotype.png" alt="MP Logotype">
+            </div>
+            <div class="middle-column">
+                <a href="https://twitter.com"><span style="font-family: 'Neue Machina', sans-serif;">TW</span></a>
+                <span style="font-family: 'Neue Machina', sans-serif;">&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                <a href="https://linkedin.com"><span style="font-family: 'Neue Machina', sans-serif;">LI</span></a>
+            </div>
+            <div class="right-column">
+                <button class="btn" onclick="toggleImageBox()">Hello!&nbsp;</button>
+                <button class="btn2" onclick="moveParts()">&nbsp;Moving Parts</button>
+            </div>
+        </div>
+
+        <!-- The image grid -->
+
+        <div class="grid-container">
+            <div class="grid" id="grid">
+                <!-- The images will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- The image box that has the link to the motion reel video -->
+
+        <div class="image-box-original">
+            <!-- playback image for motion reel -->
+        </div>
+
     </div>
-    <div class="nav-bar">
-        <div class="left-column">
-            <div class="orange-strip"></div>
-            <img src="https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Video-reel-image-box/images/MP-Logotype.png" alt="MP Logotype">
-        </div>
-        <div class="middle-column">
-            <a href="https://twitter.com"><span style="font-family: 'Neue Machina', sans-serif;">TW</span></a>
-            <span style="font-family: 'Neue Machina', sans-serif;">&nbsp;&nbsp;/&nbsp;&nbsp;</span>
-            <a href="https://linkedin.com"><span style="font-family: 'Neue Machina', sans-serif;">LI</span></a>
-        </div>
-        <div class="right-column">
-            <button class="btn" onclick="toggleImageBox()">Hello!&nbsp;</button>
-            <button class="btn2" onclick="moveParts()">&nbsp;Moving Parts</button>
-        </div>
-    </div>
-    <div class="hello-box" id="helloBox1">
-        <div class="hello-text" id="helloText">
-          <h1 >Modern People is</h1>
-          <h1 >an <span class="over">interdisciplinary </span> </h1> 
-          <h1 >design studio</h1>
-          <p><small >Creating the future with <span class="under">bold and functional </span> visual tools.</small></p>
-          <p><small >We thrive working with innovative partners who seek  <span class="strike">thinkers and makers </span> within one creative company.</small></p>
-          <p><small >Fusing <span class="strike">design thinking</span> and <span class="strike">motion storytelling</span>, we build, deploy, and amplify <span class="over">differentiated</span> brands for <span class="under">everywhere</span> they show up.</small></p>
-        </div>
-        <button class="info-btn"  onclick="toggleContact();">hello@modernpeople.io</button>
-        <div class="hello-form" id="helloForm">
-            <form class="contact-form" id="contactForm">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
-                
-                <button type="submit">Send</button>
-            </form>
-        </div>
-    </div>
-    <div class="grid-container">
-        <div class="grid" id="grid">
-            <!-- The images will be dynamically added here -->
-        </div>
-    </div>
-    <div class="image-box-original">
-        <!-- playback image for motion reel -->
-    </div>
-</div>
-<div class="footer">
+
+    <!-- Footer -->
+
+    <div class="footer">
     <!-- Optional Footer -->
+    </div>
+
 </div>
 
-<!-- Include the necessary libraries -->
+<!-- Libraries -->
 
 <script src="scripts.js"></script>
 </body>
 </html>
-0
 
 
 
@@ -78,3 +100,5 @@
 
 
 
+
+ 

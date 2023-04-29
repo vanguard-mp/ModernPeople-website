@@ -1,15 +1,24 @@
+/* || RESET */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  }
-  :root {
+}
+
+/* || VARIABLES */
+
+:root {
     --github-link: url('https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Action/');
+    /* COLORS */
     --MP-orange: #F94A1E;
     --MP-BG-color: #E8E8E2;
     --MP-hi-color:#d7ff45;  
     --MP-text-color: rgba(0, 0, 0, 0.75);
-      }
+}
+
+/* || TYPOGRAPHY */
+
 /* Thin weight; Normal style */
 @font-face {
   font-family: 'Neue Machina';
@@ -45,6 +54,28 @@
   font-style: normal;
   src: url('https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Action/fonts/PPNeueMontreal-Book.woff') format('woff');
 }
+
+/* || UTILITY CLASSES */
+
+.underline {
+  text-decoration: underline;
+}
+.under{
+  text-decoration: underline;
+  text-decoration-thickness: 4px;
+  text-decoration-color: var(--MP-hi-color);
+}
+.strike{
+  text-decoration:line-through;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--MP-hi-color);
+}
+.over{
+  background-color: var(--MP-hi-color);
+}
+
+/* || GLOBAL STYLES */
+
 body {
   background-color: var(--MP-BG-color);
   color: var(--MP-text-color);
@@ -110,6 +141,25 @@ a {
 a:hover {
   color:var(--MP-orange);
 
+}
+
+/* || BLOCKS */
+/* aka components */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* || ELEMENTS */
+/* No standalone meaning - semantically tied to the block */
+/* does not represent structure, not header__nav__btn */
+
+.header__title {
+  margin: 0;
+}
+.header__contact {
+  margin: 0;
 }
 .btn {
   
@@ -178,19 +228,7 @@ a:hover {
   background-size: cover;
   /*background-attachment: fixed;*/
 }
-.under{
-  text-decoration: underline;
-  text-decoration-thickness: 4px;
-  text-decoration-color: var(--MP-hi-color);
-}
-.strike{
-  text-decoration:line-through;
-  text-decoration-thickness: 1px;
-  text-decoration-color: var(--MP-hi-color);
-}
-.over{
-  background-color: var(--MP-hi-color);
-}
+
 .image-box-original {
   position: relative;
   /*margin-inline: 0;*/
@@ -361,17 +399,7 @@ a:hover {
   width: 100%;
   height: auto;
 }
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.header__title {
-  margin: 0;
-}
-.header__contact {
-  margin: 0;
-}
+
 .contact-link {
   color: var(--MP-orange);
   text-decoration: none;
@@ -393,6 +421,24 @@ a:hover {
   animation-duration: 0.3s;
   animation-fill-mode: forwards;
 }
+.contact-form {
+  display: none;
+}
+
+/* || MODIFIERS || */
+/* incremtal style changes */
+
+/* Blocks with modifiers */
+
+
+
+
+
+
+
+
+/* || ANIMATIONS || */
+
 @keyframes move-up {
   0% {
     transform: translateY(0);
@@ -401,9 +447,8 @@ a:hover {
     transform: translateY(-500px);
   }
 }
-.contact-form {
-  display: none;
-}
+
+/* || MEDIA QUERIES || */
 
 @media (max-width: 1200px) {
   #grid {

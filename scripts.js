@@ -1,3 +1,5 @@
+/* FETCHING IMAGES FROM GITHUB REPO */
+
 async function fetchImageURLs() {
   const folderPath = 'images/images-grid';
   const repoName = 'ModernPeople-website';
@@ -40,27 +42,44 @@ async function fetchSlideshowImageURLs() {
   }
 }
 
-function adjustNavBarOnScroll() {
-  var navBar = document.querySelector('.nav-bar');
-  var videoHeight = document.querySelector('.image-box').offsetHeight;
-  var scrollTop = window.scrollY;
-  if (scrollTop <= videoHeight - navBar.offsetHeight + 90) {
-    navBar.style.position = 'absolute';
-    navBar.style.bottom = `30px`;
-    navBar.style.top = '';
-  } else {
-    navBar.style.position = 'fixed';
-    navBar.style.top = '0';
-    navBar.style.bottom = ''; 
+/* CREATING THE GRID AND SLIDESHOW */
+
+function createSlideshow(images) {
+  if (images.length === 0) {
+    return [];
   }
+  const imageBox = document.querySelector(".image-box");
+  let currentIndex = 0;
+  
+  function updateBackgroundImage() {
+    const imageUrl = images[currentIndex];
+    imageBox.style.backgroundImage = `url(${imageUrl})`;
+    currentIndex = (currentIndex + 1) % images.length;
+  }
+
+  updateBackgroundImage();
+  setInterval(updateBackgroundImage, 3000); // Change image every 3 seconds
+  return images;
 }
 
-function adjustNavBarOnResize() {
-  var navBar = document.querySelector('.nav-bar');
-  var videoHeight = document.querySelector('.image-box').offsetHeight;
-  if (window.scrollY <= videoHeight - navBar.offsetHeight) {
-    navBar.style.bottom = `30px`;
-  }
+function createGridItem(imageURL) {
+  const gridItem = document.createElement('div');
+  gridItem.className = 'grid-item';
+  const image = new Image();
+  image.src = imageURL;
+  image.onload = () => {
+    gridItem.style.backgroundImage = `url(${imageURL})`;
+    gridItem.style.backgroundSize = 'cover';
+    const aspectRatio = image.width / image.height;
+    gridItem.style.height = `${gridItem.offsetWidth / aspectRatio}px`;
+    gridItem.classList.add('loaded');
+  };
+  return gridItem;
+}
+
+/* HELPER FUNCTIONS */
+function randomizeArray(array) {
+  return array.sort(() => Math.random() - 0.5);
 }
 
 function toggleImageBox() {
@@ -86,20 +105,32 @@ function moveParts() {
   document.querySelector('.image-box-original').scrollIntoView();
 }
 
-function createGridItem(imageURL) {
-  const gridItem = document.createElement('div');
-  gridItem.className = 'grid-item';
-  const image = new Image();
-  image.src = imageURL;
-  image.onload = () => {
-    gridItem.style.backgroundImage = `url(${imageURL})`;
-    gridItem.style.backgroundSize = 'cover';
-    const aspectRatio = image.width / image.height;
-    gridItem.style.height = `${gridItem.offsetWidth / aspectRatio}px`;
-    gridItem.classList.add('loaded');
-  };
-  return gridItem;
+/* NAVBAR FUNCTIONS */
+
+function adjustNavBarOnScroll() {
+  var navBar = document.querySelector('.nav-bar');
+  var videoHeight = document.querySelector('.image-box').offsetHeight;
+  var scrollTop = window.scrollY;
+  if (scrollTop <= videoHeight - navBar.offsetHeight + 90) {
+    navBar.style.position = 'absolute';
+    navBar.style.bottom = `30px`;
+    navBar.style.top = '';
+  } else {
+    navBar.style.position = 'fixed';
+    navBar.style.top = '0';
+    navBar.style.bottom = ''; 
+  }
 }
+
+function adjustNavBarOnResize() {
+  var navBar = document.querySelector('.nav-bar');
+  var videoHeight = document.querySelector('.image-box').offsetHeight;
+  if (window.scrollY <= videoHeight - navBar.offsetHeight) {
+    navBar.style.bottom = `30px`;
+  }
+}
+
+/* SCROLLING FUNCTIONS */
 
 function isInViewport(element) {
   const rect = element.getBoundingClientRect();
@@ -111,27 +142,9 @@ function isInViewport(element) {
   );
 }
 
-function randomizeArray(array) {
-  return array.sort(() => Math.random() - 0.5);
-}
+/* INITIALIZATION */
 
-function createSlideshow(images) {
-  if (images.length === 0) {
-    return [];
-  }
-  const imageBox = document.querySelector(".image-box");
-  let currentIndex = 0;
-  
-  function updateBackgroundImage() {
-    const imageUrl = images[currentIndex];
-    imageBox.style.backgroundImage = `url(${imageUrl})`;
-    currentIndex = (currentIndex + 1) % images.length;
-  }
 
-  updateBackgroundImage();
-  setInterval(updateBackgroundImage, 3000); // Change image every 3 seconds
-  return images;
-}
 
 async function init() {
   try {
@@ -156,9 +169,12 @@ async function init() {
 
 init();
 
-const infoBtn = document.querySelector('.info-btn');
-infoBtn.addEventListener('click', toggleContact);
+/* EVENT LISTENERS */
+
 const movingParts = document.querySelector('.btn2');
+const infoBtn = document.querySelector('.info-btn');
+
+infoBtn.addEventListener('click', toggleContact);
 movingParts.addEventListener('click', moveParts);
 
 window.addEventListener('scroll', adjustNavBarOnScroll);
