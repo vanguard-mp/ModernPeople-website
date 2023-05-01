@@ -10,17 +10,17 @@
 <body>
     <!-- The main container of the page -->
 
-    <div class="main-container">
+    <div class="main-box">
 
         <!-- The image box that will be toggled -->
 
-        <div class="image-box" id="imageBox1">
+        <div class="slide-show" id="slideShow">
         <!-- The images will be dynamically added here -->
         </div>
 
         <!-- The hello box that will be toggled -->
 
-        <div class="hello-box" id="helloBox1">
+        <div class="hello-box" id="helloBox">
             <div class="hello-text" id="helloText">
             <h1 >Modern People is</h1>
             <h1 >an <span class="over">interdisciplinary </span> </h1> 
@@ -49,7 +49,7 @@
 
         <div class="nav-bar">
             <div class="left-column">
-                <div class="orange-strip"></div>
+                <div class="orange-bar"></div>
                 <img src="https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Video-reel-image-box/images/MP-Logotype.png" alt="MP Logotype">
             </div>
             <div class="middle-column">
@@ -58,14 +58,14 @@
                 <a href="https://linkedin.com"><span style="font-family: 'Neue Machina', sans-serif;">LI</span></a>
             </div>
             <div class="right-column">
-                <button class="btn" onclick="toggleImageBox()">Hello!&nbsp;</button>
-                <button class="btn2" onclick="moveParts()">&nbsp;Moving Parts</button>
+                <button class="hello-btn" onclick="toggleImageBox()">Hello!&nbsp;</button>
+                <button class="parts-btn" onclick="moveParts()">&nbsp;Moving Parts</button>
             </div>
         </div>
 
         <!-- The image grid -->
 
-        <div class="grid-container">
+        <div class="grid-box">
             <div class="grid" id="grid">
                 <!-- The images will be dynamically added here -->
             </div>
@@ -73,7 +73,7 @@
 
         <!-- The image box that has the link to the motion reel video -->
 
-        <div class="image-box-original">
+        <div class="video-image-box">
             <!-- playback image for motion reel -->
         </div>
 

@@ -48,7 +48,7 @@ function createSlideshow(images) {
   if (images.length === 0) {
     return [];
   }
-  const imageBox = document.querySelector(".image-box");
+  const imageBox = document.querySelector(".slide-show");
   let currentIndex = 0;
   
   function updateBackgroundImage() {
@@ -83,8 +83,8 @@ function randomizeArray(array) {
 }
 
 function toggleImageBox() {
-  var x = document.getElementById("helloBox1");
-  var y = document.getElementById("imageBox1");
+  var x = document.getElementById("helloBox");
+  var y = document.getElementById("slideShow");
   x.classList.toggle("show"); /* Toggle the .show class on and off */
   if (y.style.display === "none") {
     y.style.display = "block";
@@ -102,14 +102,14 @@ function toggleContact() {
 }
 
 function moveParts() {
-  document.querySelector('.image-box-original').scrollIntoView();
+  document.querySelector('.video-image-box').scrollIntoView();
 }
 
 /* NAVBAR FUNCTIONS */
 
 function adjustNavBarOnScroll() {
   var navBar = document.querySelector('.nav-bar');
-  var videoHeight = document.querySelector('.image-box').offsetHeight;
+  var videoHeight = document.querySelector('.slide-show').offsetHeight;
   var scrollTop = window.scrollY;
   if (scrollTop <= videoHeight - navBar.offsetHeight + 90) {
     navBar.style.position = 'absolute';
@@ -124,7 +124,7 @@ function adjustNavBarOnScroll() {
 
 function adjustNavBarOnResize() {
   var navBar = document.querySelector('.nav-bar');
-  var videoHeight = document.querySelector('.image-box').offsetHeight;
+  var videoHeight = document.querySelector('.slide-show').offsetHeight;
   if (window.scrollY <= videoHeight - navBar.offsetHeight) {
     navBar.style.bottom = `30px`;
   }
@@ -171,7 +171,7 @@ init();
 
 /* EVENT LISTENERS */
 
-const movingParts = document.querySelector('.btn2');
+const movingParts = document.querySelector('.parts-btn');
 const infoBtn = document.querySelector('.info-btn');
 
 infoBtn.addEventListener('click', toggleContact);
