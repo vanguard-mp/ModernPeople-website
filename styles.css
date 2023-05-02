@@ -208,7 +208,7 @@ a:hover {
   box-sizing: border-box;
   background-color: var(--MP-BG-color);
   opacity: 0.96;
-  transition: all 0.1s ease;
+  transition: all 0.5s ease;
 }
 .nav-bar.scroll-past-video {
   top: 0;
@@ -301,7 +301,7 @@ a:hover {
 .hello-box {
   background-image: url("https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Action/images/MP-Background.jpg");
   color: var(--MP-text-color);
-  display: flex;
+  display: none;
   flex-direction: row;
   width: calc(100vw - 60px);
   height: calc(100vh - 125px);
@@ -351,6 +351,10 @@ a:hover {
 }
 .hello-form {
   /* container for contact-form */
+  display: none;
+  position: absolute;
+  bottom: 230px;
+  margin-left: 30px;
 }
 /* || CONTACT INSIDE HELLO */
 
@@ -466,7 +470,7 @@ a:hover {
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-500px);
+    transform: translateY(-200px);
   }
 }
 

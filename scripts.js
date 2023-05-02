@@ -113,16 +113,18 @@ function toggleImageBox() {
   } else {
     y.style.display = "none";
   }
+  document.querySelector(".hello-box").scrollIntoView();
 }
+
 
 function toggleContact() {
   let helloText, contactForm;
   helloText = document.querySelector(".hello-text");
   contactForm = document.querySelector(".contact-form");
   helloText.classList.add("move-up");
-  /*contactForm.classList.remove('hidden');*/
+  let helloform = document.querySelector(".hello-form");
+  helloform.style.display = "block";
 }
-
 function moveParts() {
   document.querySelector(".video-image-box").scrollIntoView();
 }
@@ -132,11 +134,11 @@ function moveParts() {
 function adjustNavBarOnScroll() {
   var navBar = document.querySelector(".nav-bar");
   var videoHeight = document.querySelector(".slide-show").offsetHeight;
+  var helloHeight = document.querySelector(".hello-box").offsetHeight;
+  let _maxHeight = videoHeight || helloHeight;
   var scrollTop = window.scrollY;
-  if (scrollTop <= videoHeight - navBar.offsetHeight + 90) {
-    navBar.style.position = "absolute";
-    navBar.style.bottom = `30px`;
-    navBar.style.top = "";
+  if (scrollTop <= _maxHeight - navBar.offsetHeight + 90) {
+    navBar.style.top = `${_maxHeight - scrollTop - navBar.offsetHeight}px`;
   } else {
     navBar.style.position = "fixed";
     navBar.style.top = "0";
