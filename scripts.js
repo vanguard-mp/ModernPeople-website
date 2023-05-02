@@ -42,6 +42,15 @@ async function fetchSlideshowImageURLs() {
   }
 }
 
+const movingParts = document.querySelector('.btn2');
+const infoBtn = document.querySelector('.info-btn');
+
+infoBtn.addEventListener('click', toggleContact);
+movingParts.addEventListener('click', moveParts);
+
+window.addEventListener('scroll', adjustNavBarOnScroll);
+window.addEventListener('resize', adjustNavBarOnResize);
+
 /* CREATING THE GRID AND SLIDESHOW */
 
 function createSlideshow(images) {
@@ -171,11 +180,4 @@ init();
 
 /* EVENT LISTENERS */
 
-const movingParts = document.querySelector('.btn2');
-const infoBtn = document.querySelector('.info-btn');
 
-infoBtn.addEventListener('click', toggleContact);
-movingParts.addEventListener('click', moveParts);
-
-window.addEventListener('scroll', adjustNavBarOnScroll);
-window.addEventListener('resize', adjustNavBarOnResize);
