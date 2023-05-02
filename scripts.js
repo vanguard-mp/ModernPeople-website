@@ -1,5 +1,24 @@
 /* FETCHING IMAGES FROM GITHUB REPO */
+async function fetchSlideshowImageURLs() {
+  const folderPath = "images/images-slideshow";
+  const repoName = "ModernPeople-website";
+  const userName = "vanguard-mp";
 
+  try {
+    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}`);
+
+    if (!response.ok) {
+      throw new Error(`Error fetching image URLs: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const imageURLs = data.map((file) => file.download_url);
+    return imageURLs;
+  } catch (error) {
+    console.error("Error:", error);
+    return [];
+  }
+}
 async function fetchImageURLs() {
   const folderPath = "images/images-grid";
   const repoName = "ModernPeople-website";
@@ -21,26 +40,7 @@ async function fetchImageURLs() {
   }
 }
 
-async function fetchSlideshowImageURLs() {
-  const folderPath = "images/images-slideshow";
-  const repoName = "ModernPeople-website";
-  const userName = "vanguard-mp";
 
-  try {
-    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}`);
-
-    if (!response.ok) {
-      throw new Error(`Error fetching image URLs: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    const imageURLs = data.map((file) => file.download_url);
-    return imageURLs;
-  } catch (error) {
-    console.error("Error:", error);
-    return [];
-  }
-}
 
 /* Fetch with chunks */
 async function fetchInChunks(startIndex, chunkSize, urls) {
@@ -108,12 +108,14 @@ function toggleImageBox() {
   var x = document.getElementById("helloBox");
   var y = document.getElementById("slideShow");
   x.classList.toggle("show"); /* Toggle the .show class on and off */
+  gridBox = document.querySelector(".grid-box");
+  gridBox.classList.toggle("toggle");
   if (y.style.display === "none") {
     y.style.display = "block";
   } else {
     y.style.display = "none";
   }
-  document.querySelector(".hello-box").scrollIntoView();
+  window.scrollTo(0, 0);
 }
 
 
@@ -135,10 +137,13 @@ function adjustNavBarOnScroll() {
   var navBar = document.querySelector(".nav-bar");
   var videoHeight = document.querySelector(".slide-show").offsetHeight;
   var helloHeight = document.querySelector(".hello-box").offsetHeight;
+  console.log('videoHeight:', videoHeight);
+  console.log('helloHeight:', helloHeight);
   let _maxHeight = videoHeight || helloHeight;
+  console.log('_maxHeight:', _maxHeight);
   var scrollTop = window.scrollY;
-  if (scrollTop <= _maxHeight - navBar.offsetHeight + 90) {
-    navBar.style.top = `${_maxHeight - scrollTop - navBar.offsetHeight}px`;
+  if (scrollTop <= _maxHeight - navBar.offsetHeight/2) {
+    navBar.style.top = `${_maxHeight - scrollTop + navBar.offsetHeight/2}px`;
   } else {
     navBar.style.position = "fixed";
     navBar.style.top = "0";
@@ -171,8 +176,9 @@ const chunkSize = 10;
 
 async function init() {
   try {
+    
     const [imageURLs, slideshowImageURLs] = await Promise.all([fetchImageURLs(), fetchSlideshowImageURLs()]);
-
+    createSlideshow(slideshowImageURLs);
     const grid = document.getElementById("grid");
     const randomizedURLs = randomizeArray(imageURLs);
 
@@ -186,7 +192,7 @@ async function init() {
       });
     }
 
-    createSlideshow(slideshowImageURLs);
+    
   } catch (error) {
     console.error("Error:", error);
   }

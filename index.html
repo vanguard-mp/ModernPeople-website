@@ -29,21 +29,30 @@
             <p><small >We thrive working with innovative partners who seek  <span class="strike">thinkers and makers </span> within one creative company.</small></p>
             <p><small >Fusing <span class="strike">design thinking</span> and <span class="strike">motion storytelling</span>, we build, deploy, and amplify <span class="over">differentiated</span> brands for <span class="under">everywhere</span> they show up.</small></p>
             </div>
-            <button class="info-btn"  onclick="toggleContact();">hello@modernpeople.io</button>
+            <button class="info-btn" onclick="toggleContact();">hello@modernpeople.io</button>
             <div class="hello-form" id="helloForm">
-                <form class="contact-form" id="contactForm">
-                    <label for="name">Name:</label>
+                <form class="contact-form" id="contactForm" action="sendmail.php" method="post">
+                  <div class="input-wrapper">
+                    <label class="contact-text" for="name">Name:</label>
+                  </div>
+                  <div class="input-wrapper">
                     <input type="text" id="name" name="name" required>
-                    
-                    <label for="email">Email:</label>
+                  </div>
+                  <div class="input-wrapper">
+                    <label class="contact-text" for="email">Email:</label>
+                  </div>
+                  <div class="input-wrapper">
                     <input type="email" id="email" name="email" required>
-                    
-                    <label for="message">Message:</label>
-                    <textarea id="message" name="message" required></textarea>
-                    
-                    <button type="submit">Send</button>
+                  </div>
+                  <div class="input-wrapper">
+                    <label class="contact-text" for="message">Message:</label>
+                  </div>
+                  <div class="input-wrapper">
+                    <textarea id="message" name="message" class="fixed-size-textarea" required></textarea>
+                  </div>
+                  <button type="submit" class="send-button">Send</button>
                 </form>
-            </div>
+              </div>
         </div>
         <!-- Navigation bar-->
 
