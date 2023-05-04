@@ -164,6 +164,17 @@ function adjustNavBarOnScroll() {
     navBar.style.top = "0";
     navBar.style.bottom = "";
   }
+  const orangeTab = document.querySelector('.orange-tab');
+  const horizontalTab = document.querySelector('.horizontal-tab');
+  const scrollBottom = window.scrollY + window.innerHeight;
+
+  if (scrollBottom >= document.body.scrollHeight) {
+    orangeTab.style.opacity = '0';
+    horizontalTab.style.opacity = '1';
+  } else {
+    orangeTab.style.opacity = '1';
+    horizontalTab.style.opacity = '0';
+  }
 }
 
 function adjustNavBarOnResize() {

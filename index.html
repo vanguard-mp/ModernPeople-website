@@ -9,7 +9,7 @@
 
 <body>
     <!-- The main container of the page -->
-
+    <div class="curiosity-text">Born out of <span class="over">relentless</span> curiosity</div>
     <div class="main-box">
 
         <!-- The image box that will be toggled -->
@@ -61,14 +61,12 @@
                 <div class="orange-tab"></div>
                 <img src="https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Video-reel-image-box/images/MP-Logotype.png" alt="MP Logotype">
             </div>
-            <div class="middle-column">
-                <a href="https://twitter.com"><span style="font-family: 'Neue Machina', sans-serif;">TW</span></a>
-                <span style="font-family: 'Neue Machina', sans-serif;">&nbsp;&nbsp;/&nbsp;&nbsp;</span>
-                <a href="https://linkedin.com"><span style="font-family: 'Neue Machina', sans-serif;">LI</span></a>
-            </div>
+           
             <div class="right-column">
-                <button class="hello-btn" onclick="toggleImageBox()">Hello!&nbsp;</button>
-                <button class="parts-btn" onclick="moveParts()">&nbsp;Moving Parts</button>
+                <button class="hello-btn" onclick="toggleImageBox()">About&nbsp;</button>
+                <button class="parts-btn" onclick="moveParts()">&nbsp;Motion</button>
+                <button class="contact-btn" onclick="moveParts()">&nbsp;Contact</button>
+
             </div>
         </div>
 
@@ -81,11 +79,14 @@
         </div>
 
         <!-- The image box that has the link to the motion reel video -->
-
-        <div class="video-image-box">
-            <!-- playback image for motion reel -->
-        </div>
-
+        <div class="video-wrapper">
+        <a href="https://api.github.com/repos/vanguard-mp/ModernPeople-website/contents/video/MP_Reelity_V3.mp4" class="video-link" target="_blank">
+            <div class="video-image-box">
+                <!-- playback image for motion reel -->
+            </div>
+        </a>
+         </div>
+        <div class="horizontal-tab"></div>
     </div>
 
     <!-- Footer -->
