@@ -172,6 +172,7 @@ function adjustNavBarOnResize() {
   if (window.scrollY <= videoHeight - navBar.offsetHeight) {
     navBar.style.bottom = `30px`;
   }
+  console.log('Window width:', window.innerWidth);
 }
 
 /* SCROLLING FUNCTIONS */
@@ -207,7 +208,13 @@ async function init() {
         grid.appendChild(gridItem);
       });
     }
-
+    const msnry = new Masonry("#grid", {
+      itemSelector: ".grid-item",
+      gutter: 0, // Set the gutter width you desire
+      percentPosition: true, // Use percentage-based widths
+    });
+    
+    
   } catch (error) {
     console.error("Error:", error);
   }
