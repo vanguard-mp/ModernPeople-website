@@ -176,18 +176,25 @@ a:hover {
 }
 .slide-show {
   position: relative;
-  /*margin-inline: 0;*/
   top: 30px;
   left: 30px;
-
   width: calc(100vw - 60px);
   height: calc(100vh - 120px);
   z-index: 1;
-  /*background-image: url('/images/reelPlay.jpg');*/
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  /*background-attachment: fixed;*/
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 /* || NAVIGATION */
@@ -208,7 +215,7 @@ a:hover {
   /*box-sizing: border-box;*/
   background-color: var(--MP-BG-color);
   opacity: 0.7;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease-out;
 }
 .nav-bar.scroll-past-video {
   top: 0;
@@ -416,21 +423,15 @@ input, textarea {
   resize: none; /* Disables the ability for users to resize the textarea */
 }
 /* || GRID AREA */
-
 .grid-box {
   margin: 90px 30px 0 30px; /* Add 60px margin-top */
-  
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-}
+   }
+
 .grid-box.toggle {
   margin: 60px 30px 0 30px;
 }
+
 #grid {
-  
   line-height: 0;
   -webkit-column-count: 5;
   -webkit-column-gap: 0px;
@@ -440,14 +441,30 @@ input, textarea {
   column-gap: 0px;
   flex: 100%;
   max-width: 100%;
-}
+  }
+
 #grid .grid-item {
   width: 100%;
   height: auto;
-  animation: fadeIn 1.2s;
-  transform-origin: left top;
-  vertical-align: middle;
+  overflow: hidden; /* Add this line */
+  position: relative; /* Add this line */
+  break-inside: avoid; /* Add this line to avoid breaking inside grid items */
+  transform: scale(1.01); /* Add this line */
+
 }
+
+#grid .grid-item img {
+  width: 100%;
+  
+  object-fit: cover; /* Add this line */
+  position: absolute; /* Add this line */
+  top: 50%; /* Add this line */
+  left: 50%; /* Add this line */
+  transform: translate(-50%, -50%); /* Add this line */
+}
+
+
+
 
 /* || MODIFIERS || */
 /* incremtal style changes */

@@ -70,19 +70,29 @@ function createSlideshow(images) {
   if (images.length === 0) {
     return [];
   }
-  const imageBox = document.querySelector(".slide-show");
+  const slideShow = document.getElementById("slideShow");
+
+  images.forEach((imageUrl, index) => {
+    const slide = document.createElement("div");
+    slide.classList.add("slide");
+    slide.style.backgroundImage = `url(${imageUrl})`;
+    slide.style.opacity = (index === 0) ? 1 : 0; // Show the first slide
+    slideShow.appendChild(slide);
+  });
+
   let currentIndex = 0;
 
   function updateBackgroundImage() {
-    const imageUrl = images[currentIndex];
-    imageBox.style.backgroundImage = `url(${imageUrl})`;
+    const previousIndex = (currentIndex - 1 + images.length) % images.length;
+    slideShow.children[currentIndex].style.opacity = 1;
+    slideShow.children[previousIndex].style.opacity = 0;
     currentIndex = (currentIndex + 1) % images.length;
   }
 
-  updateBackgroundImage();
   setInterval(updateBackgroundImage, 3000); // Change image every 3 seconds
   return images;
 }
+
 
 function createGridItem(imageURL) {
   const gridItem = document.createElement("div");
@@ -90,14 +100,19 @@ function createGridItem(imageURL) {
   const image = new Image();
   image.src = imageURL;
   image.onload = () => {
-    gridItem.style.backgroundImage = `url(${imageURL})`;
-    gridItem.style.backgroundSize = "cover";
+    gridItem.appendChild(image);
+
     const aspectRatio = image.width / image.height;
     gridItem.style.height = `${gridItem.offsetWidth / aspectRatio}px`;
+
     gridItem.classList.add("loaded");
   };
   return gridItem;
 }
+
+
+
+
 
 /* HELPER FUNCTIONS */
 function randomizeArray(array) {
@@ -137,10 +152,10 @@ function adjustNavBarOnScroll() {
   var navBar = document.querySelector(".nav-bar");
   var videoHeight = document.querySelector(".slide-show").offsetHeight;
   var helloHeight = document.querySelector(".hello-box").offsetHeight;
-  console.log('videoHeight:', videoHeight);
-  console.log('helloHeight:', helloHeight);
+  //console.log('videoHeight:', videoHeight);
+  //console.log('helloHeight:', helloHeight);
   let _maxHeight = videoHeight || helloHeight;
-  console.log('_maxHeight:', _maxHeight);
+  //console.log('_maxHeight:', _maxHeight);
   var scrollTop = window.scrollY;
   if (scrollTop <= _maxHeight - navBar.offsetHeight/2) {
     navBar.style.top = `${_maxHeight - scrollTop + navBar.offsetHeight/2}px`;
@@ -176,7 +191,6 @@ const chunkSize = 10;
 
 async function init() {
   try {
-    
     const [imageURLs, slideshowImageURLs] = await Promise.all([fetchImageURLs(), fetchSlideshowImageURLs()]);
     createSlideshow(slideshowImageURLs);
     const grid = document.getElementById("grid");
@@ -185,14 +199,15 @@ async function init() {
     let chunkSize = 5;
     let fetchCount = Math.ceil(randomizedURLs.length / chunkSize);
     for (let i = 0; i < fetchCount; i++) {
+      console.log(`Fetching chunk ${i + 1} of ${fetchCount}`); // Add this line
       let newImgObjs = await fetchInChunks(i * chunkSize, chunkSize, randomizedURLs);
+      console.log(`Fetched ${newImgObjs.length} images in chunk ${i + 1}`); // Add this line
       newImgObjs.forEach((imageURL) => {
         const gridItem = createGridItem(imageURL);
         grid.appendChild(gridItem);
       });
     }
 
-    
   } catch (error) {
     console.error("Error:", error);
   }
