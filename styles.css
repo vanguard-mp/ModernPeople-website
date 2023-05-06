@@ -287,7 +287,7 @@ a:hover {
   margin-right: -10px;
 }
 /* inside right-column */
-.hello-btn {
+.about-btn {
   border: none;
   background-color: transparent;
   color: var(--MP-text-color);
@@ -297,7 +297,7 @@ a:hover {
   cursor: pointer;
   display: inline-block;
 }
-.hello-btn:hover {
+.about-btn:hover {
   color: var(--MP-orange);
 }
 .contact-btn {
@@ -314,7 +314,7 @@ a:hover {
   color: var(--MP-orange);
 }
 
-.parts-btn {
+.motion-btn {
   border: none;
   background-color: transparent;
   color: var(--MP-text-color);
@@ -324,7 +324,7 @@ a:hover {
   cursor: pointer;
   display: inline-block;
 }
-.parts-btn:hover {
+.motion-btn:hover {
   color: var(--MP-orange);
 }
 

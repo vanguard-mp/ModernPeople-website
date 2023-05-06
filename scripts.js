@@ -119,30 +119,26 @@ function randomizeArray(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
-function toggleImageBox() {
-  var x = document.getElementById("helloBox");
-  var y = document.getElementById("slideShow");
-  x.classList.toggle("show"); /* Toggle the .show class on and off */
-  gridBox = document.querySelector(".grid-box");
-  gridBox.classList.toggle("toggle");
-  if (y.style.display === "none") {
-    y.style.display = "block";
-  } else {
-    y.style.display = "none";
-  }
-  window.scrollTo(0, 0);
+function toggleAbout() {
+  const aboutSection = document.getElementById('aboutSection');
+  const contactSection = document.getElementById('contactSection');
+  const slideShow = document.getElementById('slideShow');
+  
+  aboutSection.classList.toggle('hidden');
+  contactSection.classList.add('hidden');
+  slideShow.classList.toggle('hidden');
 }
-
 
 function toggleContact() {
-  let helloText, contactForm;
-  helloText = document.querySelector(".hello-text");
-  contactForm = document.querySelector(".contact-form");
-  helloText.classList.add("move-up");
-  let helloform = document.querySelector(".hello-form");
-  helloform.style.display = "block";
+  const aboutSection = document.getElementById('aboutSection');
+  const contactSection = document.getElementById('contactSection');
+  const slideShow = document.getElementById('slideShow');
+  
+  aboutSection.classList.add('hidden');
+  contactSection.classList.toggle('hidden');
+  slideShow.classList.toggle('hidden');
 }
-function moveParts() {
+function motionScroll() {
   document.querySelector(".video-image-box").scrollIntoView();
 }
 
@@ -235,11 +231,11 @@ init();
 
 /* EVENT LISTENERS */
 
-const movingParts = document.querySelector(".parts-btn");
-const infoBtn = document.querySelector(".info-btn");
+const motionBtn = document.querySelector(".motion-btn");
+const aboutBtn = document.querySelector(".about-btn");
 
-infoBtn.addEventListener("click", toggleContact);
-movingParts.addEventListener("click", moveParts);
+aboutBtn.addEventListener("click", toggleAbout);
+motionBtn.addEventListener("click", motionScroll);
 
 window.addEventListener("scroll", adjustNavBarOnScroll);
 window.addEventListener("resize", adjustNavBarOnResize);

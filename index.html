@@ -17,42 +17,33 @@
         <div class="slide-show" id="slideShow">
         <!-- The images will be dynamically added here -->
         </div>
-
-        <!-- The hello box that will be toggled -->
-
-        <div class="hello-box" id="helloBox">
-            <div class="hello-text" id="helloText">
-            <h1 >Modern People is</h1>
-            <h1 >an <span class="over">interdisciplinary </span> </h1> 
-            <h1 >design studio</h1>
-            <p><small >Creating the future with <span class="under">bold and functional </span> visual tools.</small></p>
-            <p><small >We thrive working with innovative partners who seek  <span class="strike">thinkers and makers </span> within one creative company.</small></p>
-            <p><small >Fusing <span class="strike">design thinking</span> and <span class="strike">motion storytelling</span>, we build, deploy, and amplify <span class="over">differentiated</span> brands for <span class="under">everywhere</span> they show up.</small></p>
+        <div class="about-section hidden" id="aboutSection">
+          <img src="https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/images/mp_pos_desk_BG.svg
+          " alt="about section">
+        </div>
+        <!-- The contact section that will be toggled -->
+        <div class="contact-section hidden" id="contactSection">
+          <form class="contact-form" id="contactForm" action="sendmail.php" method="post">
+            <div class="input-wrapper">
+              <label class="contact-text" for="name">Name:</label>
             </div>
-            <button class="info-btn" onclick="toggleContact();">hello@modernpeople.io</button>
-            <div class="hello-form" id="helloForm">
-                <form class="contact-form" id="contactForm" action="sendmail.php" method="post">
-                  <div class="input-wrapper">
-                    <label class="contact-text" for="name">Name:</label>
-                  </div>
-                  <div class="input-wrapper">
-                    <input type="text" id="name" name="name" required>
-                  </div>
-                  <div class="input-wrapper">
-                    <label class="contact-text" for="email">Email:</label>
-                  </div>
-                  <div class="input-wrapper">
-                    <input type="email" id="email" name="email" required>
-                  </div>
-                  <div class="input-wrapper">
-                    <label class="contact-text" for="message">Message:</label>
-                  </div>
-                  <div class="input-wrapper">
-                    <textarea id="message" name="message" class="fixed-size-textarea" required></textarea>
-                  </div>
-                  <button type="submit" class="send-button">Send</button>
-                </form>
-              </div>
+            <div class="input-wrapper">
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="input-wrapper">
+              <label class="contact-text" for="email">Email:</label>
+            </div>
+            <div class="input-wrapper">
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="input-wrapper">
+              <label class="contact-text" for="message">Message:</label>
+            </div>
+            <div class="input-wrapper">
+              <textarea id="message" name="message" class="fixed-size-textarea" required></textarea>
+            </div>
+            <button type="submit" class="send-button">Send</button>
+          </form>
         </div>
         <!-- Navigation bar-->
 
@@ -63,9 +54,9 @@
             </div>
            
             <div class="right-column">
-                <button class="hello-btn" onclick="toggleImageBox()">About&nbsp;</button>
-                <button class="parts-btn" onclick="moveParts()">&nbsp;Motion</button>
-                <button class="contact-btn" onclick="moveParts()">&nbsp;Contact</button>
+                <button class="about-btn" onclick="toggleAbout()">About&nbsp;</button>
+                <button class="motion-btn" onclick="motionScroll()">&nbsp;Motion</button>
+                <button class="contact-btn" onclick="toggleContact()">&nbsp;Contact</button>
 
             </div>
         </div>
