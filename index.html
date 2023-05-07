@@ -13,15 +13,20 @@
     <div class="main-box">
 
         <div class = "top-box" id = "topBox">
-
+          
           <!-- The image box that will be toggled -->
 
           <div class="slide-show" id="slideShow">
           <!-- The images will be dynamically added here -->
           </div>
-
+          
+          
           <div class="about-section hidden" id="aboutSection">
-            <img src="images/mp_pos_desk_BG.svg" alt="about section" class="about-image">
+            <picture>
+              <source media="(max-width: 768px)" srcset="images/mp_pos_mobile_BG.svg">
+              <source media="(min-width: 769px)" srcset="images/mp_pos_desk_BG.svg">
+              <img src="images/mp_pos_desk_BG.svg" alt="pos Image" class="about-image">
+            </picture>
           </div>
 
           <!-- The contact section that will be toggled -->
@@ -63,8 +68,8 @@
         <div class="nav-bar">
             <div class="left-column">
               <div class="orange-tab"></div>
-              <img src="images/MP-Skull.png" alt="Skull" class="skull" id="skull">
-              <img src="images/MP-Type.png" alt="Logo" class="logo" id="logo">
+              
+              <img src="images/MP-Logotype.png" alt="Logo" class="logo" id="logo">
             </div>
            
             <div class="right-column">

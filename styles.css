@@ -194,19 +194,28 @@ a:hover {
   min-height: calc(100vh - 120px);
   background-color: var(--MP-Dark-BG-color);
   margin: 30px 30px 0 30px;
-  overflow-x: hidden;
+  overflow: hidden;
+  z-index: -2;
 }
+
 
 .about-section.hidden .about-image {
   display: none;
 }
-
-.about-section .about-image {
+.about-image {  
+  position: absolute;
+  bottom: 0px;
+  left: 30px;
+  right: 30px;
+  
+}
+.about-section {
   position: absolute;
   bottom: 60px;
   left: 30px;
   right: 30px;
   margin-bottom: 30px;
+  object-fit: contain;
 }
 .contact-section .hidden{
   display: flex;
@@ -305,9 +314,9 @@ a:hover {
 .logo {
   display: flex;
   position: absolute;
-  top: 12px;
-  left: 40px;
-  width: 13%;
+  top: 20px;
+  left: 0px;
+  width: 10vw;
   height: auto;
   cursor: pointer; /* Set the default cursor style */
 
@@ -607,6 +616,7 @@ input, textarea {
       scale: 30%;
      }
   }
+ 
 }
 
 @media screen and (max-width: 768px) {
@@ -623,7 +633,7 @@ input, textarea {
       scale: 20%;
      }
   }
-}
+
 
 @media screen and (max-width: 480px) {
   #grid .grid-item {
@@ -637,5 +647,8 @@ input, textarea {
    }
    .contact-orange-skull {
     scale: 10%;
+   }
+   .about-image {
+    content: url("images/mp_pos_mobile_BG.svg");
    }
 }

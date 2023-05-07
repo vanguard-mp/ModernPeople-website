@@ -278,8 +278,7 @@ function updateTopBoxHeight() {
 // Add event listener to the logo element
 document.getElementById('logo').addEventListener('click', skullFunc);
 
-// Add event listener to the skull element
-document.getElementById('skull').addEventListener('click', skullFunc);
+
 
 // Function to scroll to the top
 function skullFunc(){
@@ -308,36 +307,28 @@ function scrollToTop() {
  
 
 }
-const skull = document.getElementById('skull');
+//const skull = document.getElementById('skull');
 const logo = document.getElementById('logo');
 
 // Store the original image source URLs
-const skullSrc = skull.src;
+//const skullSrc = skull.src;
 const logoSrc = logo.src;
 
 // Define the paths to the orange versions of the images
-const orangeSkullSrc = 'images/MP-Skull-orange.png'; // Replace with the path to the orange skull image
-const orangeLogoSrc = 'images/MP-Type-orange.png'; // Replace with the path to the orange logo image
+//const orangeSkullSrc = 'images/MP-Skull-orange.png'; // Replace with the path to the orange skull image
+const orangeLogoSrc = 'images/MP-Logotype-Orange.png'; // Replace with the path to the orange logo image
 
 // Swap the image source on hover
 
-skull.addEventListener('mouseover', function() {
-  skull.src = orangeSkullSrc;
-  logo.src = orangeLogoSrc;
-});
 
-skull.addEventListener('mouseout', function() {
-  skull.src = skullSrc;
-  logo.src = logoSrc;
-});
 
 logo.addEventListener('mouseover', function() {
-  skull.src = orangeSkullSrc;
+  //skull.src = orangeSkullSrc;
   logo.src = orangeLogoSrc;
 });
 
 logo.addEventListener('mouseout', function() {
-  skull.src = skullSrc;
+  //skull.src = skullSrc;
   logo.src = logoSrc;
 });
 
