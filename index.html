@@ -12,51 +12,66 @@
     <div class="curiosity-text">Born out of <span class="over">relentless</span> curiosity</div>
     <div class="main-box">
 
-        <!-- The image box that will be toggled -->
+        <div class = "top-box" id = "topBox">
 
-        <div class="slide-show" id="slideShow">
-        <!-- The images will be dynamically added here -->
+          <!-- The image box that will be toggled -->
+
+          <div class="slide-show" id="slideShow">
+          <!-- The images will be dynamically added here -->
+          </div>
+
+          <div class="about-section hidden" id="aboutSection">
+            <img src="images/mp_pos_desk_BG.svg" alt="about section" class="about-image">
+          </div>
+
+          <!-- The contact section that will be toggled -->
+          <div class="contact-section hidden" id="contactSection">
+            <div class="contact-orange-skull">
+              <img src="images/MP-Skull-orange.png" alt="Orange Skull">
+            </div>
+            <div class="contact-text">hello@modernpeople.io</div>
+            <form class="contact-form" id="contactForm" action="sendmail.php" method="post">
+              <div class="input-wrapper">
+                <label class="contact-text" for="name">Name:</label>
+              </div>
+              <div class="input-wrapper">
+                <input type="text" id="name" name="name" required>
+              </div>
+              <div class="input-wrapper">
+                <label class="contact-text" for="email">Email:</label>
+              </div>
+              <div class="input-wrapper">
+                <input type="email" id="email" name="email" required>
+              </div>
+              <div class="input-wrapper">
+                <label class="contact-text" for="message">Message:</label>
+              </div>
+              <div class="input-wrapper">
+                <textarea id="message" name="message" class="fixed-size-textarea" required></textarea>
+              </div>
+              <button type="submit" class="send-button">Send</button>
+            </form>
+            <div class="contact-arrow">
+              <img src="images/arrow_wh.png" alt="Arrow">
+            </div>
+          </div>
+
         </div>
-        <div class="about-section hidden" id="aboutSection">
-          <img src="https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/images/mp_pos_desk_BG.svg
-          " alt="about section">
-        </div>
-        <!-- The contact section that will be toggled -->
-        <div class="contact-section hidden" id="contactSection">
-          <form class="contact-form" id="contactForm" action="sendmail.php" method="post">
-            <div class="input-wrapper">
-              <label class="contact-text" for="name">Name:</label>
-            </div>
-            <div class="input-wrapper">
-              <input type="text" id="name" name="name" required>
-            </div>
-            <div class="input-wrapper">
-              <label class="contact-text" for="email">Email:</label>
-            </div>
-            <div class="input-wrapper">
-              <input type="email" id="email" name="email" required>
-            </div>
-            <div class="input-wrapper">
-              <label class="contact-text" for="message">Message:</label>
-            </div>
-            <div class="input-wrapper">
-              <textarea id="message" name="message" class="fixed-size-textarea" required></textarea>
-            </div>
-            <button type="submit" class="send-button">Send</button>
-          </form>
-        </div>
+
         <!-- Navigation bar-->
 
         <div class="nav-bar">
             <div class="left-column">
-                <div class="orange-tab"></div>
-                <img src="https://raw.githubusercontent.com/vanguard-mp/ModernPeople-website/Video-reel-image-box/images/MP-Logotype.png" alt="MP Logotype">
+              <div class="orange-tab"></div>
+              <img src="images/MP-Skull.png" alt="Skull" class="skull" id="skull">
+              <img src="images/MP-Type.png" alt="Logo" class="logo" id="logo">
             </div>
            
             <div class="right-column">
-                <button class="about-btn" onclick="toggleAbout()">About&nbsp;</button>
-                <button class="motion-btn" onclick="motionScroll()">&nbsp;Motion</button>
-                <button class="contact-btn" onclick="toggleContact()">&nbsp;Contact</button>
+              <button class="nav-btn about-btn">About&nbsp;</button>
+              <button class="nav-btn motion-btn">&nbsp;Motion</button>
+              <button class="nav-btn contact-btn">&nbsp;Contact</button>
+              
 
             </div>
         </div>
@@ -90,7 +105,7 @@
 
 <!-- Libraries -->
 
-<script src="scripts.js"></script>
+<script src="scripts.js" defer></script>
 <script src="https://unpkg.com/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"></script>
 
 </body>

@@ -119,27 +119,99 @@ function randomizeArray(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
+// Function to reshuffle the grid
+function reshuffleGrid() {
+  // Call the randomizeArray function to shuffle the grid items
+  const gridItems = document.querySelectorAll('.grid-item');
+  const randomizedItems = randomizeArray(Array.from(gridItems));
+  
+  // Remove existing grid items
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  
+  // Append the shuffled grid items back to the grid
+  randomizedItems.forEach((item) => {
+    grid.appendChild(item);
+  });
+}
+
 function toggleAbout() {
+  const aboutBtn = document.querySelector('.about-btn');
+  const motionBtn = document.querySelector('.motion-btn');
+  const contactBtn = document.querySelector('.contact-btn');
+  
   const aboutSection = document.getElementById('aboutSection');
   const contactSection = document.getElementById('contactSection');
   const slideShow = document.getElementById('slideShow');
-  
-  aboutSection.classList.toggle('hidden');
-  contactSection.classList.add('hidden');
-  slideShow.classList.toggle('hidden');
+
+  if (aboutSection.classList.contains('hidden')) {
+    aboutSection.classList.remove('hidden');
+    contactSection.classList.add('hidden');
+    slideShow.classList.add('hidden');
+    activateButton(aboutBtn);
+    deactivateButtons([motionBtn, contactBtn]);
+  } else {
+    aboutSection.classList.add('hidden');
+    slideShow.classList.remove('hidden');
+    deactivateButtons([aboutBtn, motionBtn, contactBtn]);
+  }
+  scrollToTop();
+  updateTopBoxHeight();
 }
 
 function toggleContact() {
+  const aboutBtn = document.querySelector('.about-btn');
+  const motionBtn = document.querySelector('.motion-btn');
+  const contactBtn = document.querySelector('.contact-btn');
+  
   const aboutSection = document.getElementById('aboutSection');
   const contactSection = document.getElementById('contactSection');
   const slideShow = document.getElementById('slideShow');
-  
-  aboutSection.classList.add('hidden');
-  contactSection.classList.toggle('hidden');
-  slideShow.classList.toggle('hidden');
+
+  if (contactSection.classList.contains('hidden')) {
+    contactSection.classList.remove('hidden');
+    aboutSection.classList.add('hidden');
+    slideShow.classList.add('hidden');
+    activateButton(contactBtn);
+    deactivateButtons([aboutBtn, motionBtn]);
+  } else {
+    contactSection.classList.add('hidden');
+    slideShow.classList.remove('hidden');
+    deactivateButtons([aboutBtn, motionBtn, contactBtn]);
+  }
+  scrollToTop();
+  updateTopBoxHeight();
 }
+
+
+function activateButton(button) {
+  button.style.fontWeight = 'bold';
+}
+
+function deactivateButtons(buttons) {
+  buttons.forEach((button) => {
+    button.style.fontWeight = 'normal';
+  });
+}
+
+
 function motionScroll() {
-  document.querySelector(".video-image-box").scrollIntoView();
+  const aboutBtn = document.querySelector('.about-btn');
+  const motionBtn = document.querySelector('.motion-btn');
+  const contactBtn = document.querySelector('.contact-btn');
+  var navBar = document.querySelector(".nav-bar");
+  
+  contactSection.classList.add('hidden');
+  aboutSection.classList.add('hidden');
+  slideShow.classList.remove('hidden');
+  activateButton(motionBtn);
+  deactivateButtons([aboutBtn, contactBtn]);
+  if(navBar.offsetTop === 0){
+    scrollToTop();
+    deactivateButtons([aboutBtn, motionBtn, contactBtn]);
+  } else {
+    document.querySelector(".video-image-box").scrollIntoView();
+  }
 }
 
 /* NAVBAR FUNCTIONS */
@@ -147,10 +219,10 @@ function motionScroll() {
 function adjustNavBarOnScroll() {
   var navBar = document.querySelector(".nav-bar");
   var videoHeight = document.querySelector(".slide-show").offsetHeight;
-  var helloHeight = document.querySelector(".hello-box").offsetHeight;
+  var topHeight = document.querySelector(".top-box").offsetHeight;
   //console.log('videoHeight:', videoHeight);
   //console.log('helloHeight:', helloHeight);
-  let _maxHeight = videoHeight || helloHeight;
+  let _maxHeight = videoHeight || topHeight;
   //console.log('_maxHeight:', _maxHeight);
   var scrollTop = window.scrollY;
   if (scrollTop <= _maxHeight - navBar.offsetHeight/2) {
@@ -193,6 +265,83 @@ function isInViewport(element) {
     rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
+window.addEventListener('resize', updateTopBoxHeight);
+
+function updateTopBoxHeight() {
+  const windowHeight = window.innerHeight;
+  const topBox = document.getElementById('topBox');
+  topBox.style.height = (windowHeight - 120) + 'px';
+}
+
+/* SKULL AND LOGOTYPE FUNCTIONS */
+
+// Add event listener to the logo element
+document.getElementById('logo').addEventListener('click', skullFunc);
+
+// Add event listener to the skull element
+document.getElementById('skull').addEventListener('click', skullFunc);
+
+// Function to scroll to the top
+function skullFunc(){
+  const aboutBtn = document.querySelector('.about-btn');
+  const motionBtn = document.querySelector('.motion-btn');
+  const contactBtn = document.querySelector('.contact-btn');
+
+  const aboutSection = document.getElementById('aboutSection');
+  const contactSection = document.getElementById('contactSection');
+  const slideShow = document.getElementById('slideShow');
+
+  deactivateButtons([aboutBtn, motionBtn, contactBtn]);
+  scrollToTop();
+  slideShow.classList.remove('hidden');
+  aboutSection.classList.add('hidden');
+  contactSection.classList.add('hidden');
+
+
+}
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+    
+  });
+ 
+
+}
+const skull = document.getElementById('skull');
+const logo = document.getElementById('logo');
+
+// Store the original image source URLs
+const skullSrc = skull.src;
+const logoSrc = logo.src;
+
+// Define the paths to the orange versions of the images
+const orangeSkullSrc = 'images/MP-Skull-orange.png'; // Replace with the path to the orange skull image
+const orangeLogoSrc = 'images/MP-Type-orange.png'; // Replace with the path to the orange logo image
+
+// Swap the image source on hover
+
+skull.addEventListener('mouseover', function() {
+  skull.src = orangeSkullSrc;
+  logo.src = orangeLogoSrc;
+});
+
+skull.addEventListener('mouseout', function() {
+  skull.src = skullSrc;
+  logo.src = logoSrc;
+});
+
+logo.addEventListener('mouseover', function() {
+  skull.src = orangeSkullSrc;
+  logo.src = orangeLogoSrc;
+});
+
+logo.addEventListener('mouseout', function() {
+  skull.src = skullSrc;
+  logo.src = logoSrc;
+});
+
+
 
 /* INITIALIZATION */
 const chunkSize = 10;
@@ -231,11 +380,17 @@ init();
 
 /* EVENT LISTENERS */
 
-const motionBtn = document.querySelector(".motion-btn");
-const aboutBtn = document.querySelector(".about-btn");
-
-aboutBtn.addEventListener("click", toggleAbout);
-motionBtn.addEventListener("click", motionScroll);
+document.querySelector('.motion-btn').addEventListener('click', motionScroll);
+document.querySelector('.contact-btn').addEventListener('click', toggleContact);
 
 window.addEventListener("scroll", adjustNavBarOnScroll);
 window.addEventListener("resize", adjustNavBarOnResize);
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateTopBoxHeight();
+  window.addEventListener('resize', updateTopBoxHeight);
+});
+
+document.querySelector('.about-btn').addEventListener('click', toggleAbout);
+document.querySelector('.motion-btn').addEventListener('click', motionScroll);
+document.querySelector('.contact-btn').addEventListener('click', toggleContact);
