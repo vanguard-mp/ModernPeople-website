@@ -76,8 +76,34 @@ function createSlideshow(images) {
     const slide = document.createElement("div");
     slide.classList.add("slide");
     slide.style.backgroundImage = `url(${imageUrl})`;
-    slide.style.opacity = (index === 0) ? 1 : 0; // Show the first slide
+
+    // Create the overlay elements
+    const overlay = document.createElement("div");
+    overlay.classList.add("overlay");
+
+    const overlayLine = document.createElement("div");
+    overlayLine.classList.add("overlay-line");
+
+    const overlayText = document.createElement("div");
+    overlayText.classList.add("overlay-text");
+    overlayText.innerHTML = `Project #${index + 1} <span>&#9654;</span> Capability #${index + 1}`; // Replace with the desired content
+
+    // Append the overlay elements to the slide
+    overlay.appendChild(overlayLine);
+    overlay.appendChild(overlayText);
+    slide.appendChild(overlay);
+
+    slide.style.opacity = index === 0 ? 1 : 0; // Show the first slide
     slideShow.appendChild(slide);
+
+    // Add hover effect to each slide
+    slide.addEventListener("mouseenter", () => {
+      overlay.style.opacity = 1;
+    });
+
+    slide.addEventListener("mouseleave", () => {
+      overlay.style.opacity = 0;
+    });
   });
 
   let currentIndex = 0;
@@ -92,6 +118,7 @@ function createSlideshow(images) {
   setInterval(updateBackgroundImage, 3000); // Change image every 3 seconds
   return images;
 }
+
 
 
 function createGridItem(imageURL) {
