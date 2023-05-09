@@ -95,15 +95,23 @@ function createSlideshow(images) {
 
     slide.style.opacity = index === 0 ? 1 : 0; // Show the first slide
     slideShow.appendChild(slide);
+    const slides = document.querySelectorAll(".slide");
 
-    // Add hover effect to each slide
-    slide.addEventListener("mouseenter", () => {
-      overlay.style.opacity = 1;
-    });
+for (let i = 0; i < slides.length; i++) {
+  slides[i].addEventListener("mouseenter", function () {
+    const overlay = slides[i].querySelector(".overlay");
+    overlay.classList.add("visible-overlay");
+    
+  });
 
-    slide.addEventListener("mouseleave", () => {
-      overlay.style.opacity = 0;
-    });
+  slides[i].addEventListener("mouseleave", function () {
+    const overlay = slides[i].querySelector(".overlay");
+    overlay.classList.remove("visible-overlay");
+    
+  });
+}
+    
+   
   });
 
   let currentIndex = 0;
@@ -394,7 +402,10 @@ async function init() {
   }
 }
 
-init();
+document.addEventListener("DOMContentLoaded", function () {
+  init();
+});
+
 
 /* EVENT LISTENERS */
 
@@ -412,3 +423,4 @@ document.addEventListener('DOMContentLoaded', () => {
 document.querySelector('.about-btn').addEventListener('click', toggleAbout);
 document.querySelector('.motion-btn').addEventListener('click', motionScroll);
 document.querySelector('.contact-btn').addEventListener('click', toggleContact);
+
