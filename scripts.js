@@ -101,13 +101,13 @@ for (let i = 0; i < slides.length; i++) {
   slides[i].addEventListener("mouseenter", function () {
     const overlay = slides[i].querySelector(".overlay");
     overlay.classList.add("visible-overlay");
-    
+    console.log("mouse enter");
   });
 
   slides[i].addEventListener("mouseleave", function () {
     const overlay = slides[i].querySelector(".overlay");
     overlay.classList.remove("visible-overlay");
-    
+    console.log("mouse exit");
   });
 }
     
