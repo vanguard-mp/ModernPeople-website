@@ -229,7 +229,7 @@ a:hover {
   z-index: 10;
   
 }
-.slide:hover .overlay {
+.slide-show:hover .overlay {
   opacity: 1;
 }
 .slide img {
@@ -293,18 +293,22 @@ a:hover {
 }
 .about-image {  
   position: absolute;
-  bottom: 0px;
+  top: 30px;
   left: 30px;
   right: 30px;
+  max-width: 1000px;
+  object-fit: contain;
   
 }
 .about-section {
   position: absolute;
-  bottom: 60px;
+  top: 30px;
   left: 30px;
   right: 30px;
   margin-bottom: 30px;
   object-fit: contain;
+  
+  
 }
 .contact-section .hidden{
   display: flex;
@@ -695,14 +699,23 @@ input, textarea {
     margin: 5vw 5vw 0 5vw;  
   }
   .slide-show {
-    width: 100vw;}
+    width: 100vw;
+  }
+  .curiosity-text {
+    top: 2vw;
+  right: 5vw;
+  }
 }
 
 /* small PHONE */ 
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 360px) {
   #grid .grid-item {
     width: 100%;
    }
+   .curiosity-text {
+    top: 1vw;
+  
+  }
 }
 

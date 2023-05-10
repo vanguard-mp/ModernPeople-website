@@ -15,7 +15,7 @@ async function fetchSlideshowImageURLs() {
     console.log('Fetched data:', data);
     const desktopImages = [];
     const mobileImages = [];
-
+    const overlayData = "";
     data.forEach((file, index) => {
       const fileName = file.name;
       const [client, capabilities, device, number] = fileName.split("_");
@@ -90,6 +90,24 @@ async function fetchImg(url) {
   }
 }
 
+/* Switch images at breakpoint 900px width */
+
+function handleWindowResize(images) {
+  const slideShow = document.getElementById("slideShow");
+
+  window.addEventListener("resize", function () {
+    const currentWidth = window.innerWidth;
+    const isDesktop = currentWidth > 900;
+
+    images.forEach((image, index) => {
+      const slide = slideShow.children[index];
+      const imageElement = slide.querySelector("img");
+      const imageUrl = isDesktop ? image.desktop : image.mobile;
+      imageElement.src = imageUrl;
+    });
+  });
+}
+
 /* CREATING THE GRID AND SLIDESHOW */
 
 function createSlideshow(desktopImages, mobileImages) {
@@ -117,7 +135,7 @@ function createSlideshow(desktopImages, mobileImages) {
 
     const overlayText = document.createElement("div");
     overlayText.classList.add("overlay-text");
-    overlayText.innerHTML = `Project #${index + 1} &nbsp;<span>//</span> Capability #${index + 1}`;
+    overlayText.innerHTML = `${image.client.toUpperCase()} &nbsp;<span>//</span> ${image.capabilities}`;
 
     // Append the overlay elements to the slide
     overlay.appendChild(overlayText);
@@ -129,15 +147,7 @@ function createSlideshow(desktopImages, mobileImages) {
     slide.appendChild(imageElement);
     slideShow.appendChild(slide);
 
-    slide.addEventListener('mouseenter', function (event) {
-      const overlay = event.currentTarget.querySelector('.overlay');
-      overlay.classList.add('visible-overlay');
-    });
-
-    slide.addEventListener('mouseexit', function (event) {
-      const overlay = event.currentTarget.querySelector('.overlay');
-      overlay.classList.remove('visible-overlay');
-    });
+    
     
   });
 
@@ -153,6 +163,28 @@ function createSlideshow(desktopImages, mobileImages) {
 
   setInterval(updateBackgroundImage, 3000); // Change image every 3 seconds
 
+ 
+
+  function updateImages() {
+    let images = window.innerWidth > 900 ? desktopImages : mobileImages;
+  
+    images.forEach((image, index) => {
+      const slide = slideShow.children[index];
+      const imageElement = slide.querySelector("img");
+      const overlayText = slide.querySelector(".overlay-text");
+  
+      imageElement.src = window.innerWidth > 900 ? image.desktop : image.mobile;
+      overlayText.innerHTML = `${image.client.toUpperCase()} &nbsp;<span>//</span> ${image.capabilities}`;
+    });
+  }
+  
+
+  window.addEventListener("resize", function () {
+    const currentWidth = window.innerWidth;
+    const isDesktop = currentWidth > 900;
+  
+    updateImages(isDesktop ? desktopImages : mobileImages);
+  });
  
 }
 
