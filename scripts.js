@@ -12,13 +12,40 @@ async function fetchSlideshowImageURLs() {
     }
 
     const data = await response.json();
-    const imageURLs = data.map((file) => file.download_url);
-    return imageURLs;
+    console.log('Fetched data:', data);
+    const desktopImages = [];
+    const mobileImages = [];
+
+    data.forEach((file, index) => {
+      const fileName = file.name;
+      const [client, capabilities, device, number] = fileName.split("_");
+
+      if (device === "desktop" || device === "mobile") {
+        const imageUrl = file.download_url;
+        const image = {
+          desktop: device === "desktop" ? imageUrl : "",
+          mobile: device === "mobile" ? imageUrl : "",
+          client,
+          capabilities,
+          number: number.replace(".jpg", ""),
+        };
+
+        if (device === "desktop") {
+          desktopImages.push(image);
+        } else if (device === "mobile") {
+          mobileImages.push(image);
+        }
+      }
+    });
+
+    return { desktopImages, mobileImages };
   } catch (error) {
     console.error("Error:", error);
-    return [];
+    return { desktopImages: [], mobileImages: [] };
   }
 }
+
+
 async function fetchImageURLs() {
   const folderPath = "images/images-grid";
   const repoName = "ModernPeople-website";
@@ -39,7 +66,6 @@ async function fetchImageURLs() {
     return [];
   }
 }
-
 
 
 /* Fetch with chunks */
@@ -66,16 +92,21 @@ async function fetchImg(url) {
 
 /* CREATING THE GRID AND SLIDESHOW */
 
-function createSlideshow(images) {
+function createSlideshow(desktopImages, mobileImages) {
+  const images = window.innerWidth > 900 ? desktopImages : mobileImages;
+  
   if (images.length === 0) {
-    return [];
+    return;
   }
+  
   const slideShow = document.getElementById("slideShow");
 
-  images.forEach((imageUrl, index) => {
+  images.forEach((image, index) => {
     const slide = document.createElement("div");
     slide.classList.add("slide");
-    slide.style.backgroundImage = `url(${imageUrl})`;
+
+    const imageElement = new Image();
+    imageElement.src = window.innerWidth > 900 ? image.desktop : image.mobile;
 
     // Create the overlay elements
     const overlay = document.createElement("div");
@@ -86,33 +117,28 @@ function createSlideshow(images) {
 
     const overlayText = document.createElement("div");
     overlayText.classList.add("overlay-text");
-    overlayText.innerHTML = `Project #${index + 1} &nbsp;<span>//</span> Capability #${index + 1}`; // Replace with the desired content
+    overlayText.innerHTML = `Project #${index + 1} &nbsp;<span>//</span> Capability #${index + 1}`;
 
     // Append the overlay elements to the slide
-    
     overlay.appendChild(overlayText);
     overlay.appendChild(overlayLine);
-    slide.appendChild(overlay);
+    slide.appendChild(overlay);å
 
     slide.style.opacity = index === 0 ? 1 : 0; // Show the first slide
+
+    slide.appendChild(imageElement);
     slideShow.appendChild(slide);
-    const slides = document.querySelectorAll(".slide");
 
-  for (let i = 0; i < slides.length; i++) {
-    slideShow.addEventListener("mouseenter", function () {
-      const overlay = slides[i].querySelector(".overlay");
-      overlay.classList.add("visible-overlay");
-      console.log("mouse enter");
+    slide.addEventListener('mouseenter', function (event) {
+      const overlay = event.currentTarget.querySelector('.overlay');
+      overlay.classList.add('visible-overlay');
     });
 
-    slideShow.addEventListener("mouseleave", function () {
-      const overlay = slides[i].querySelector(".overlay");
-      overlay.classList.remove("visible-overlay");
-      console.log("mouse exit");
+    slide.addEventListener('mouseexit', function (event) {
+      const overlay = event.currentTarget.querySelector('.overlay');
+      overlay.classList.remove('visible-overlay');
     });
-  }
-      
-   
+    
   });
 
   let currentIndex = 0;
@@ -123,10 +149,13 @@ function createSlideshow(images) {
     slideShow.children[previousIndex].style.opacity = 0;
     currentIndex = (currentIndex + 1) % images.length;
   }
+ 
 
   setInterval(updateBackgroundImage, 3000); // Change image every 3 seconds
-  return images;
+
+ 
 }
+
 
 
 
@@ -326,7 +355,6 @@ function updateTopBoxHeight() {
 document.getElementById('logo').addEventListener('click', skullFunc);
 
 
-
 // Function to scroll to the top
 function skullFunc(){
   const aboutBtn = document.querySelector('.about-btn');
@@ -386,29 +414,29 @@ const chunkSize = 10;
 
 async function init() {
   try {
-    const [imageURLs, slideshowImageURLs] = await Promise.all([fetchImageURLs(), fetchSlideshowImageURLs()]);
-    createSlideshow(slideshowImageURLs);
+    const { desktopImages, mobileImages } = await fetchSlideshowImageURLs();
+    createSlideshow(desktopImages, mobileImages);
+    
+    const imageURLs = await fetchImageURLs();
     const grid = document.getElementById("grid");
     const randomizedURLs = randomizeArray(imageURLs);
 
-    let chunkSize = 5;
     let fetchCount = Math.ceil(randomizedURLs.length / chunkSize);
     for (let i = 0; i < fetchCount; i++) {
-      console.log(`Fetching chunk ${i + 1} of ${fetchCount}`); // Add this line
+      console.log(`Fetching chunk ${i + 1} of ${fetchCount}`);
       let newImgObjs = await fetchInChunks(i * chunkSize, chunkSize, randomizedURLs);
-      console.log(`Fetched ${newImgObjs.length} images in chunk ${i + 1}`); // Add this line
+      console.log(`Fetched ${newImgObjs.length} images in chunk ${i + 1}`);
       newImgObjs.forEach((imageURL) => {
         const gridItem = createGridItem(imageURL);
         grid.appendChild(gridItem);
       });
     }
+
     const msnry = new Masonry("#grid", {
       itemSelector: ".grid-item",
-      gutter: 0, // Set the gutter width you desire
-      percentPosition: true, // Use percentage-based widths
+      gutter: 0,
+      percentPosition: true,
     });
-    
-    
   } catch (error) {
     console.error("Error:", error);
   }
@@ -430,9 +458,12 @@ window.addEventListener("resize", adjustNavBarOnResize);
 document.addEventListener('DOMContentLoaded', () => {
   updateTopBoxHeight();
   window.addEventListener('resize', updateTopBoxHeight);
+  
+  
 });
 
 document.querySelector('.about-btn').addEventListener('click', toggleAbout);
 document.querySelector('.motion-btn').addEventListener('click', motionScroll);
 document.querySelector('.contact-btn').addEventListener('click', toggleContact);
+
 
