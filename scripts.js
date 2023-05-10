@@ -90,14 +90,14 @@ async function fetchImg(url) {
   }
 }
 
-/* Switch images at breakpoint 900px width */
+/* Switch images at breakpoint 600px width */
 
 function handleWindowResize(images) {
   const slideShow = document.getElementById("slideShow");
 
   window.addEventListener("resize", function () {
     const currentWidth = window.innerWidth;
-    const isDesktop = currentWidth > 900;
+    const isDesktop = currentWidth > 600;
 
     images.forEach((image, index) => {
       const slide = slideShow.children[index];
@@ -111,7 +111,7 @@ function handleWindowResize(images) {
 /* CREATING THE GRID AND SLIDESHOW */
 
 function createSlideshow(desktopImages, mobileImages) {
-  const images = window.innerWidth > 900 ? desktopImages : mobileImages;
+  const images = window.innerWidth > 600 ? desktopImages : mobileImages;
   
   if (images.length === 0) {
     return;
@@ -124,7 +124,7 @@ function createSlideshow(desktopImages, mobileImages) {
     slide.classList.add("slide");
 
     const imageElement = new Image();
-    imageElement.src = window.innerWidth > 900 ? image.desktop : image.mobile;
+    imageElement.src = window.innerWidth > 600 ? image.desktop : image.mobile;
 
     // Create the overlay elements
     const overlay = document.createElement("div");
@@ -166,14 +166,14 @@ function createSlideshow(desktopImages, mobileImages) {
  
 
   function updateImages() {
-    let images = window.innerWidth > 900 ? desktopImages : mobileImages;
+    let images = window.innerWidth > 600 ? desktopImages : mobileImages;
   
     images.forEach((image, index) => {
       const slide = slideShow.children[index];
       const imageElement = slide.querySelector("img");
       const overlayText = slide.querySelector(".overlay-text");
   
-      imageElement.src = window.innerWidth > 900 ? image.desktop : image.mobile;
+      imageElement.src = window.innerWidth > 600 ? image.desktop : image.mobile;
       overlayText.innerHTML = `${image.client.toUpperCase()} &nbsp;<span>//</span> ${image.capabilities}`;
     });
   }
@@ -181,7 +181,7 @@ function createSlideshow(desktopImages, mobileImages) {
 
   window.addEventListener("resize", function () {
     const currentWidth = window.innerWidth;
-    const isDesktop = currentWidth > 900;
+    const isDesktop = currentWidth > 600;
   
     updateImages(isDesktop ? desktopImages : mobileImages);
   });
