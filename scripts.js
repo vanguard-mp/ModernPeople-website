@@ -122,7 +122,7 @@ function createSlideshow(desktopImages, mobileImages) {
     // Append the overlay elements to the slide
     overlay.appendChild(overlayText);
     overlay.appendChild(overlayLine);
-    slide.appendChild(overlay);å
+    slide.appendChild(overlay);
 
     slide.style.opacity = index === 0 ? 1 : 0; // Show the first slide
 
