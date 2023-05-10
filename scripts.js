@@ -86,31 +86,32 @@ function createSlideshow(images) {
 
     const overlayText = document.createElement("div");
     overlayText.classList.add("overlay-text");
-    overlayText.innerHTML = `Project #${index + 1} <span>&#9654;</span> Capability #${index + 1}`; // Replace with the desired content
+    overlayText.innerHTML = `Project #${index + 1} &nbsp;<span>//</span> Capability #${index + 1}`; // Replace with the desired content
 
     // Append the overlay elements to the slide
-    overlay.appendChild(overlayLine);
+    
     overlay.appendChild(overlayText);
+    overlay.appendChild(overlayLine);
     slide.appendChild(overlay);
 
     slide.style.opacity = index === 0 ? 1 : 0; // Show the first slide
     slideShow.appendChild(slide);
     const slides = document.querySelectorAll(".slide");
 
-for (let i = 0; i < slides.length; i++) {
-  slides[i].addEventListener("mouseenter", function () {
-    const overlay = slides[i].querySelector(".overlay");
-    overlay.classList.add("visible-overlay");
-    console.log("mouse enter");
-  });
+  for (let i = 0; i < slides.length; i++) {
+    slideShow.addEventListener("mouseenter", function () {
+      const overlay = slides[i].querySelector(".overlay");
+      overlay.classList.add("visible-overlay");
+      console.log("mouse enter");
+    });
 
-  slides[i].addEventListener("mouseleave", function () {
-    const overlay = slides[i].querySelector(".overlay");
-    overlay.classList.remove("visible-overlay");
-    console.log("mouse exit");
-  });
-}
-    
+    slideShow.addEventListener("mouseleave", function () {
+      const overlay = slides[i].querySelector(".overlay");
+      overlay.classList.remove("visible-overlay");
+      console.log("mouse exit");
+    });
+  }
+      
    
   });
 
@@ -283,11 +284,22 @@ function adjustNavBarOnScroll() {
 function adjustNavBarOnResize() {
   var navBar = document.querySelector(".nav-bar");
   var videoHeight = document.querySelector(".slide-show").offsetHeight;
+  var topHeight = document.querySelector(".top-box").offsetHeight;
+  let _maxHeight = videoHeight || topHeight;
+  var scrollTop = window.scrollY;
+  if (scrollTop <= _maxHeight - navBar.offsetHeight/2) {
+    navBar.style.top = `${_maxHeight - scrollTop + navBar.offsetHeight/2}px`;
+  } else {
+    navBar.style.position = "fixed";
+    navBar.style.top = "0";
+    navBar.style.bottom = "";
+  }
+
   if (window.scrollY <= videoHeight - navBar.offsetHeight) {
     navBar.style.bottom = `30px`;
   }
-  console.log('Window width:', window.innerWidth);
 }
+
 
 /* SCROLLING FUNCTIONS */
 
