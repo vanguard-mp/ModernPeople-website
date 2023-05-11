@@ -111,12 +111,12 @@ function handleWindowResize(images) {
 /* CREATING THE GRID AND SLIDESHOW */
 
 function createSlideshow(desktopImages, mobileImages) {
-  const images = window.innerWidth > 600 ? desktopImages : mobileImages;
+  let images = window.innerWidth > 600 ? desktopImages : mobileImages;
   
   if (images.length === 0) {
     return;
   }
-  
+  images = randomizeArray(images);
   const slideShow = document.getElementById("slideShow");
 
   images.forEach((image, index) => {
@@ -213,7 +213,11 @@ function createGridItem(imageURL) {
 
 /* HELPER FUNCTIONS */
 function randomizeArray(array) {
-  return array.sort(() => Math.random() - 0.5);
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 // Function to reshuffle the grid
