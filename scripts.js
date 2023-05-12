@@ -318,33 +318,23 @@ function motionScroll() {
 /* NAVBAR FUNCTIONS */
 
 function adjustNavBarOnScroll() {
-  var navBar = document.querySelector(".nav-bar");
-  var videoHeight = document.querySelector(".slide-show").offsetHeight;
-  var topHeight = document.querySelector(".top-box").offsetHeight;
-  //console.log('videoHeight:', videoHeight);
-  //console.log('helloHeight:', helloHeight);
-  let _maxHeight = videoHeight || topHeight;
-  //console.log('_maxHeight:', _maxHeight);
-  var scrollTop = window.scrollY;
-  if (scrollTop <= _maxHeight - navBar.offsetHeight/2) {
-    navBar.style.top = `${_maxHeight - scrollTop + navBar.offsetHeight/2}px`;
-  } else {
-    navBar.style.position = "fixed";
-    navBar.style.top = "0";
-    navBar.style.bottom = "";
-  }
-  const orangeTab = document.querySelector('.orange-tab');
-  const horizontalTab = document.querySelector('.horizontal-tab');
-  const scrollBottom = window.scrollY + window.innerHeight;
+  
+    const navBar = document.querySelector(".nav-bar");
+    const videoHeight = document.querySelector(".slide-show").offsetHeight;
+    const scrollTop = window.pageYOffset;
+  
+    if (scrollTop > videoHeight) {
+      navBar.classList.add("sticky");
+    } else {
+      navBar.classList.remove("sticky");
+    }
+  
+  
+  requestAnimationFrame(adjustNavBarOnScroll);
 
-  if (scrollBottom >= document.body.scrollHeight) {
-    orangeTab.style.opacity = '0';
-    horizontalTab.style.opacity = '1';
-  } else {
-    orangeTab.style.opacity = '1';
-    horizontalTab.style.opacity = '0';
-  }
 }
+  
+window.addEventListener("scroll", adjustNavBarOnScroll);
 
 function adjustNavBarOnResize() {
   var navBar = document.querySelector(".nav-bar");
@@ -478,6 +468,9 @@ async function init() {
   }
 }
 
+window.addEventListener("scroll", adjustNavBarOnScroll);
+window.addEventListener("resize", adjustNavBarOnResize);
+
 document.addEventListener("DOMContentLoaded", function () {
   init();
 });
@@ -488,8 +481,7 @@ document.addEventListener("DOMContentLoaded", function () {
 document.querySelector('.motion-btn').addEventListener('click', motionScroll);
 document.querySelector('.contact-btn').addEventListener('click', toggleContact);
 
-window.addEventListener("scroll", adjustNavBarOnScroll);
-window.addEventListener("resize", adjustNavBarOnResize);
+
 
 document.addEventListener('DOMContentLoaded', () => {
   updateTopBoxHeight();
@@ -503,3 +495,4 @@ document.querySelector('.motion-btn').addEventListener('click', motionScroll);
 document.querySelector('.contact-btn').addEventListener('click', toggleContact);
 
 
+adjustNavBarOnScroll();
