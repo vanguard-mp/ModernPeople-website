@@ -27,7 +27,7 @@ async function fetchSlideshowImageURLs() {
           mobile: device === "mobile" ? imageUrl : "",
           client,
           capabilities,
-          number: number.replace(".jpg", ""),
+          number: number.replace(/\..*/, ""),
         };
 
         if (device === "desktop") {
