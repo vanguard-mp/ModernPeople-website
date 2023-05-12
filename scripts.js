@@ -4,16 +4,14 @@ async function fetchSlideshowImageURLs() {
   const folderPath = "images/images-slideshow";
   const repoName = "ModernPeople-website";
   const userName = "vanguard-mp";
-
+  const apiKey = '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';
   try {
-    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}`);
-
+    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}?api_key=${apiKey}`);
     if (!response.ok) {
       throw new Error(`Error fetching image URLs: ${response.statusText}`);
     }
 
     const data = await response.json();
-    console.log('Fetched data:', data);
     const desktopImages = [];
     const mobileImages = [];
     const overlayData = "";
@@ -51,9 +49,9 @@ async function fetchImageURLs() {
   const folderPath = "images/images-grid";
   const repoName = "ModernPeople-website";
   const userName = "vanguard-mp";
-
+  const apiKey = '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';
   try {
-    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}`);
+    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}?api_key=${apiKey}`);
 
     if (!response.ok) {
       throw new Error(`Error fetching image URLs: ${response.statusText}`);
@@ -72,121 +70,117 @@ async function fetchImageURLs() {
 /* Fetch with chunks */
 async function fetchInChunks(startIndex, chunkSize, urls) {
   let imgObjs = [];
-  for (let i = startIndex; i < startIndex + chunkSize; i++) {
+  const endIndex = Math.min(startIndex + chunkSize, urls.length);
+  for (let i = startIndex; i < endIndex; i++) {
     url = urls[i];
     let imgObj = await fetchImg(url);
     imgObjs.push(imgObj);
-  }
-  return imgObjs;
 }
+return imgObjs;
+}
+
 async function fetchImg(url) {
-  // const image = await fetchBlob(url);
-  const options = {
-    method: "GET",
-  };
-  let response = await fetch(url, options);
-  if (response.status === 200) {
-    const imageBlob = await response.blob();
-    return URL.createObjectURL(imageBlob);
-  }
+const options = {
+  method: "GET",
+};
+let response = await fetch(url, options);
+if (response.status === 200) {
+  const imageBlob = await response.blob();
+  return URL.createObjectURL(imageBlob);
+}
 }
 
 /* Switch images at breakpoint 600px width */
 
 function handleWindowResize(images) {
-  const slideShow = document.getElementById("slideShow");
+const slideShow = document.getElementById("slideShow");
 
-  window.addEventListener("resize", function () {
-    const currentWidth = window.innerWidth;
-    const isDesktop = currentWidth > 600;
+window.addEventListener("resize", function () {
+  const currentWidth = window.innerWidth;
+  const isDesktop = currentWidth > 600;
 
-    images.forEach((image, index) => {
-      const slide = slideShow.children[index];
-      const imageElement = slide.querySelector("img");
-      const imageUrl = isDesktop ? image.desktop : image.mobile;
-      imageElement.src = imageUrl;
-    });
+  images.forEach((image, index) => {
+    const slide = slideShow.children[index];
+    const imageElement = slide.querySelector("img");
+    const imageUrl = isDesktop ? image.desktop : image.mobile;
+    imageElement.src = imageUrl;
   });
+});
 }
 
 /* CREATING THE GRID AND SLIDESHOW */
 
 function createSlideshow(desktopImages, mobileImages) {
+let images = window.innerWidth > 600 ? desktopImages : mobileImages;
+
+if (images.length === 0) {
+  return;
+}
+images = randomizeArray(images);
+const slideShow = document.getElementById("slideShow");
+
+images.forEach((image, index) => {
+  const slide = document.createElement("div");
+  slide.classList.add("slide");
+
+  const imageElement = new Image();
+  imageElement.src = window.innerWidth > 600 ? image.desktop : image.mobile;
+
+  // Create the overlay elements
+  const overlay = document.createElement("div");
+  overlay.classList.add("overlay");
+
+  const overlayLine = document.createElement("div");
+  overlayLine.classList.add("overlay-line");
+
+  const overlayText = document.createElement("div");
+  overlayText.classList.add("overlay-text");
+  overlayText.innerHTML = `${image.client.toUpperCase()} &nbsp;<span>//</span> ${image.capabilities}`;
+
+  // Append the overlay elements to the slide
+  overlay.appendChild(overlayText);
+  overlay.appendChild(overlayLine);
+  slide.appendChild(overlay);
+
+  slide.style.opacity = index === 0 ? 1 : 0; // Show the first slide
+
+  slide.appendChild(imageElement);
+  slideShow.appendChild(slide);
+});
+
+let currentIndex = 0;
+
+function updateBackgroundImage() {
+  const previousIndex = (currentIndex - 1 + images.length) % images.length;
+  slideShow.children[currentIndex].style.opacity = 1;
+  slideShow.children[previousIndex].style.opacity = 0;
+  currentIndex = (currentIndex + 1) % images.length;
+}
+
+setInterval(updateBackgroundImage, 3000); // Change image every 3 seconds
+
+function updateImages() {
   let images = window.innerWidth > 600 ? desktopImages : mobileImages;
-  
-  if (images.length === 0) {
-    return;
-  }
-  images = randomizeArray(images);
-  const slideShow = document.getElementById("slideShow");
 
   images.forEach((image, index) => {
-    const slide = document.createElement("div");
-    slide.classList.add("slide");
+    const slide = slideShow.children[index];
+    const imageElement = slide.querySelector("img");
+    const overlayText = slide.querySelector(".overlay-text");
 
-    const imageElement = new Image();
     imageElement.src = window.innerWidth > 600 ? image.desktop : image.mobile;
-
-    // Create the overlay elements
-    const overlay = document.createElement("div");
-    overlay.classList.add("overlay");
-
-    const overlayLine = document.createElement("div");
-    overlayLine.classList.add("overlay-line");
-
-    const overlayText = document.createElement("div");
-    overlayText.classList.add("overlay-text");
     overlayText.innerHTML = `${image.client.toUpperCase()} &nbsp;<span>//</span> ${image.capabilities}`;
-
-    // Append the overlay elements to the slide
-    overlay.appendChild(overlayText);
-    overlay.appendChild(overlayLine);
-    slide.appendChild(overlay);
-
-    slide.style.opacity = index === 0 ? 1 : 0; // Show the first slide
-
-    slide.appendChild(imageElement);
-    slideShow.appendChild(slide);
-
-    
   });
-
-  let currentIndex = 0;
-
-  function updateBackgroundImage() {
-    const previousIndex = (currentIndex - 1 + images.length) % images.length;
-    slideShow.children[currentIndex].style.opacity = 1;
-    slideShow.children[previousIndex].style.opacity = 0;
-    currentIndex = (currentIndex + 1) % images.length;
-  }
- 
-
-  setInterval(updateBackgroundImage, 3000); // Change image every 3 seconds
-
- 
-
-  function updateImages() {
-    let images = window.innerWidth > 600 ? desktopImages : mobileImages;
-  
-    images.forEach((image, index) => {
-      const slide = slideShow.children[index];
-      const imageElement = slide.querySelector("img");
-      const overlayText = slide.querySelector(".overlay-text");
-  
-      imageElement.src = window.innerWidth > 600 ? image.desktop : image.mobile;
-      overlayText.innerHTML = `${image.client.toUpperCase()} &nbsp;<span>//</span> ${image.capabilities}`;
-    });
-  }
-  
-
-  window.addEventListener("resize", function () {
-    const currentWidth = window.innerWidth;
-    const isDesktop = currentWidth > 600;
-  
-    updateImages(isDesktop ? desktopImages : mobileImages);
-  });
- 
 }
+
+window.addEventListener("resize", function () {
+  const currentWidth = window.innerWidth;
+  const isDesktop = currentWidth > 600;
+
+  updateImages(isDesktop ? desktopImages : mobileImages);
+});
+}
+
+// Rest of the code...
 
 
 
@@ -477,7 +471,7 @@ logo.addEventListener('mouseout', function() {
 
 
 /* INITIALIZATION */
-const chunkSize = 10;
+const chunkSize = 30;
 
 async function init() {
   try {
