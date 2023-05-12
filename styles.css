@@ -334,20 +334,9 @@ a:hover {
   /*box-sizing: border-box;*/
   background-color: var(--MP-BG-color);
   opacity: 1;
-  
+  translateZ(0);
 }
-.nav-bar.scroll-past-video {
-  top: 0;
-  bottom: auto;
-  background-color: white;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
-}
-.nav-bar.sticky {
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
 
-}
 /* orange tab on the left, freely moving on-top of nav-bar position */
 .orange-tab {
   position: absolute;

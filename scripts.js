@@ -317,23 +317,20 @@ function motionScroll() {
 /* NAVBAR FUNCTIONS */
 
 function adjustNavBarOnScroll() {
-  
-    const navBar = document.querySelector(".nav-bar");
-    const videoHeight = document.querySelector(".slide-show").offsetHeight;
-    const scrollTop = window.pageYOffset;
-  
-    if (scrollTop > videoHeight) {
-      navBar.classList.add("sticky");
-    } else {
-      navBar.classList.remove("sticky");
-    }
-  
-  
-  requestAnimationFrame(adjustNavBarOnScroll);
-
+  var navBar = document.querySelector('.nav-bar');
+  var videoHeight = document.querySelector('.slide-show').offsetHeight;
+  var scrollTop = window.scrollY;
+  if (scrollTop <= videoHeight - navBar.offsetHeight + 90) {
+    navBar.style.position = 'absolute';
+    navBar.style.bottom = `30px`;
+    navBar.style.top = '';
+  } else {
+    navBar.style.position = 'sticky';
+    navBar.style.top = '0';
+    navBar.style.bottom = ''; 
+  }
 }
-  
-window.addEventListener("scroll", adjustNavBarOnScroll);
+
 
 function adjustNavBarOnResize() {
   var navBar = document.querySelector(".nav-bar");
@@ -467,8 +464,7 @@ async function init() {
   }
 }
 
-window.addEventListener("scroll", adjustNavBarOnScroll);
-window.addEventListener("resize", adjustNavBarOnResize);
+
 
 document.addEventListener("DOMContentLoaded", function () {
   init();
@@ -480,7 +476,8 @@ document.addEventListener("DOMContentLoaded", function () {
 document.querySelector('.motion-btn').addEventListener('click', motionScroll);
 document.querySelector('.contact-btn').addEventListener('click', toggleContact);
 
-
+window.addEventListener("scroll", adjustNavBarOnScroll);
+window.addEventListener("resize", adjustNavBarOnResize);
 
 document.addEventListener('DOMContentLoaded', () => {
   updateTopBoxHeight();
