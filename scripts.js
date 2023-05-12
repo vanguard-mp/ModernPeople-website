@@ -1,4 +1,5 @@
 /* FETCHING IMAGES FROM GITHUB REPO */
+
 async function fetchSlideshowImageURLs() {
   const folderPath = "images/images-slideshow";
   const repoName = "ModernPeople-website";
@@ -310,9 +311,33 @@ function motionScroll() {
     scrollToTop();
     deactivateButtons([aboutBtn, motionBtn, contactBtn]);
   } else {
-    document.querySelector(".video-image-box").scrollIntoView();
+    const bottomY = document.documentElement.scrollHeight - window.innerHeight;
+    window.scrollTo({
+      top: bottomY,
+      behavior: 'smooth'
+    });
   }
 }
+
+// function motionScroll() {
+//   const aboutBtn = document.querySelector('.about-btn');
+//   const motionBtn = document.querySelector('.motion-btn');
+//   const contactBtn = document.querySelector('.contact-btn');
+//   var navBar = document.querySelector(".nav-bar");
+  
+//   contactSection.classList.add('hidden');
+//   aboutSection.classList.add('hidden');
+//   slideShow.classList.remove('hidden');
+
+//   activateButton(motionBtn);
+//   deactivateButtons([aboutBtn, contactBtn]);
+
+//   const bottomY = document.documentElement.scrollHeight - window.innerHeight;
+//   window.scrollBy({
+//     top: bottomY,
+//     behavior: 'smooth'
+//   });
+// }
 
 /* NAVBAR FUNCTIONS */
 
@@ -328,6 +353,17 @@ function adjustNavBarOnScroll() {
     navBar.style.position = 'sticky';
     navBar.style.top = '0';
     navBar.style.bottom = ''; 
+  }
+  const orangeTab = document.querySelector('.orange-tab');
+  const horizontalTab = document.querySelector('.horizontal-tab');
+  const scrollBottom = window.scrollY + window.innerHeight;
+
+  if (scrollBottom >= document.body.scrollHeight) {
+    orangeTab.style.opacity = '0';
+    horizontalTab.style.opacity = '1';
+  } else {
+    orangeTab.style.opacity = '1';
+    horizontalTab.style.opacity = '0';
   }
 }
 
@@ -378,6 +414,7 @@ document.getElementById('logo').addEventListener('click', skullFunc);
 
 
 // Function to scroll to the top
+
 function skullFunc(){
   const aboutBtn = document.querySelector('.about-btn');
   const motionBtn = document.querySelector('.motion-btn');
@@ -404,14 +441,22 @@ function scrollToTop() {
  
 
 }
+
+
+
+
+
 //const skull = document.getElementById('skull');
+
 const logo = document.getElementById('logo');
 
 // Store the original image source URLs
+
 //const skullSrc = skull.src;
 const logoSrc = logo.src;
 
 // Define the paths to the orange versions of the images
+
 //const orangeSkullSrc = 'images/MP-Skull-orange.png'; // Replace with the path to the orange skull image
 const orangeLogoSrc = 'images/MP-Logotype-Orange.png'; // Replace with the path to the orange logo image
 
@@ -436,6 +481,8 @@ const chunkSize = 10;
 
 async function init() {
   try {
+    scrollToTop();
+    adjustNavBarOnScroll();
     const { desktopImages, mobileImages } = await fetchSlideshowImageURLs();
     createSlideshow(desktopImages, mobileImages);
     
@@ -491,4 +538,4 @@ document.querySelector('.motion-btn').addEventListener('click', motionScroll);
 document.querySelector('.contact-btn').addEventListener('click', toggleContact);
 
 
-adjustNavBarOnScroll();
+
