@@ -148,7 +148,6 @@ function createSlideshow(desktopImages, mobileImages) {
     slideShow.appendChild(slide);
 
     
-    
   });
 
   let currentIndex = 0;
