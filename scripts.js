@@ -36,6 +36,7 @@ async function fetchSlideshowImageURLs() {
   }
 
   try {
+    
     const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}`, { headers });
 
     // If the status is 304 Not Modified, we can return early
@@ -90,7 +91,7 @@ let lastModified = null;
 async function fetchImageURLs() {
   const folderPath = "images/images-grid";
   const repoName = "ModernPeople-website";
-  const userName = "vanguard-mp";
+  const userName = "modern-people";
 
   let headers = {
     'Accept': 'application/vnd.github+json'
@@ -518,7 +519,7 @@ const logoSrc = logo.src;
 // Define the paths to the orange versions of the images
 
 //const orangeSkullSrc = 'images/MP-Skull-orange.png'; // Replace with the path to the orange skull image
-const orangeLogoSrc = 'images/MP Logomark Single Line Large-Orange.svg'; // Replace with the path to the orange logo image
+const orangeLogoSrc = 'images/MP Logomark Single Line Small-Orange.svg'; // Replace with the path to the orange logo image
 
 // Swap the image source on hover
 
