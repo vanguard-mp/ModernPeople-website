@@ -1,12 +1,52 @@
+
+/* QUERY CONSTANTS */
+
+const logo = document.getElementById('logo');
+const aboutBtn = document.querySelector('.about-btn');
+const motionBtn = document.querySelector('.motion-btn');
+const contactBtn = document.querySelector('.contact-btn');
+const aboutSection = document.getElementById('aboutSection');
+const contactSection = document.getElementById('contactSection');
+const slideShow = document.getElementById('slideShow');
+const topBox = document.getElementById('topBox');
+const grid = document.getElementById("grid");
+
+
 /* FETCHING IMAGES FROM GITHUB REPO */
+
+let slideshowEtag = null;
+let slideshowLastModified = null;
 
 async function fetchSlideshowImageURLs() {
   const folderPath = "images/images-slideshow";
   const repoName = "ModernPeople-website";
   const userName = "vanguard-mp";
-  const apiKey = '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';
+
+  let headers = {
+    'Accept': 'application/vnd.github+json'
+  };
+
+  // Include the ETag and Last-Modified headers if they exist
+  if (slideshowEtag) {
+    headers['If-None-Match'] = slideshowEtag;
+  }
+
+  if (slideshowLastModified) {
+    headers['If-Modified-Since'] = slideshowLastModified;
+  }
+
   try {
-    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}?api_key=${apiKey}`);
+    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}`, { headers });
+
+    // If the status is 304 Not Modified, we can return early
+    if (response.status === 304) {
+      return;
+    }
+
+    // Update the ETag and Last-Modified headers
+    slideshowEtag = response.headers.get('ETag');
+    slideshowLastModified = response.headers.get('Last-Modified');
+
     if (!response.ok) {
       throw new Error(`Error fetching image URLs: ${response.statusText}`);
     }
@@ -14,7 +54,6 @@ async function fetchSlideshowImageURLs() {
     const data = await response.json();
     const desktopImages = [];
     const mobileImages = [];
-    const overlayData = "";
     data.forEach((file, index) => {
       const fileName = file.name;
       const [client, capabilities, device, number] = fileName.split("_");
@@ -45,12 +84,38 @@ async function fetchSlideshowImageURLs() {
 }
 
 
+let etag = null;
+let lastModified = null;
+
 async function fetchImageURLs() {
   const folderPath = "images/images-grid";
   const repoName = "ModernPeople-website";
   const userName = "vanguard-mp";
+
+  let headers = {
+    'Accept': 'application/vnd.github+json'
+  };
+
+  // Include the ETag and Last-Modified headers if they exist
+  if (etag) {
+    headers['If-None-Match'] = etag;
+  }
+
+  if (lastModified) {
+    headers['If-Modified-Since'] = lastModified;
+  }
+
   try {
-    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}`);
+    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}`, { headers });
+
+    // If the status is 304 Not Modified, we can return early
+    if (response.status === 304) {
+      return;
+    }
+
+    // Update the ETag and Last-Modified headers
+    etag = response.headers.get('ETag');
+    lastModified = response.headers.get('Last-Modified');
 
     if (!response.ok) {
       throw new Error(`Error fetching image URLs: ${response.statusText}`);
@@ -64,6 +129,7 @@ async function fetchImageURLs() {
     return [];
   }
 }
+
 
 
 /* Fetch with chunks */
@@ -228,15 +294,20 @@ function reshuffleGrid() {
     grid.appendChild(item);
   });
 }
+function toggleSections(showSlideShow = false) {
+  if (showSlideShow) {
+    slideShow.classList.remove('hidden');
+    aboutSection.classList.add('hidden');
+    contactSection.classList.add('hidden');
+  } else {
+    slideShow.classList.add('hidden');
+    aboutSection.classList.remove('hidden');
+    contactSection.classList.remove('hidden');
+  }
+}
 
 function toggleAbout() {
-  const aboutBtn = document.querySelector('.about-btn');
-  const motionBtn = document.querySelector('.motion-btn');
-  const contactBtn = document.querySelector('.contact-btn');
   
-  const aboutSection = document.getElementById('aboutSection');
-  const contactSection = document.getElementById('contactSection');
-  const slideShow = document.getElementById('slideShow');
 
   if (aboutSection.classList.contains('hidden')) {
     aboutSection.classList.remove('hidden');
@@ -254,13 +325,7 @@ function toggleAbout() {
 }
 
 function toggleContact() {
-  const aboutBtn = document.querySelector('.about-btn');
-  const motionBtn = document.querySelector('.motion-btn');
-  const contactBtn = document.querySelector('.contact-btn');
   
-  const aboutSection = document.getElementById('aboutSection');
-  const contactSection = document.getElementById('contactSection');
-  const slideShow = document.getElementById('slideShow');
 
   if (contactSection.classList.contains('hidden')) {
     aboutSection.classList.add('hidden');
@@ -292,9 +357,7 @@ function deactivateButtons(buttons) {
 
 
 function motionScroll() {
-  const aboutBtn = document.querySelector('.about-btn');
-  const motionBtn = document.querySelector('.motion-btn');
-  const contactBtn = document.querySelector('.contact-btn');
+
   var navBar = document.querySelector(".nav-bar");
   
   contactSection.classList.add('hidden');
@@ -384,6 +447,18 @@ function adjustNavBarOnResize() {
 
 
 /* SCROLLING FUNCTIONS */
+let ticking = false;
+
+window.addEventListener('scroll', function(e) {
+  if (!ticking) {
+    window.requestAnimationFrame(function() {
+      adjustNavBarOnScroll();
+      ticking = false;
+    });
+
+    ticking = true;
+  }
+});
 
 function isInViewport(element) {
   const rect = element.getBoundingClientRect();
@@ -411,23 +486,12 @@ document.getElementById('logo').addEventListener('click', skullFunc);
 
 // Function to scroll to the top
 
-function skullFunc(){
-  const aboutBtn = document.querySelector('.about-btn');
-  const motionBtn = document.querySelector('.motion-btn');
-  const contactBtn = document.querySelector('.contact-btn');
-
-  const aboutSection = document.getElementById('aboutSection');
-  const contactSection = document.getElementById('contactSection');
-  const slideShow = document.getElementById('slideShow');
-
+function skullFunc() {
   deactivateButtons([aboutBtn, motionBtn, contactBtn]);
   scrollToTop();
-  slideShow.classList.remove('hidden');
-  aboutSection.classList.add('hidden');
-  contactSection.classList.add('hidden');
-
-
+  toggleSections(true);
 }
+
 function scrollToTop() {
   window.scrollTo({
     top: 0,
@@ -444,7 +508,7 @@ function scrollToTop() {
 
 //const skull = document.getElementById('skull');
 
-const logo = document.getElementById('logo');
+
 
 // Store the original image source URLs
 
@@ -470,10 +534,26 @@ logo.addEventListener('mouseout', function() {
   logo.src = logoSrc;
 });
 
+function addImagesToGrid(imageURLs) {
+  
+  imageURLs.forEach((imageURL) => {
+    const gridItem = createGridItem(imageURL);
+    grid.appendChild(gridItem);
+  });
+  // Layout Masonry after each image loads
+  imagesLoaded(grid, function() {
+    const msnry = new Masonry(grid, {
+      horizontalOrder: true,
+      gutter: 0,
+      transitionDuration: 0
+    });
+    msnry.layout();
+  });
+}
 
 
 /* INITIALIZATION */
-const chunkSize = 30;
+const chunkSize = 5;
 
 async function init() {
   try {
@@ -483,26 +563,20 @@ async function init() {
     createSlideshow(desktopImages, mobileImages);
     
     const imageURLs = await fetchImageURLs();
-    const grid = document.getElementById("grid");
     const randomizedURLs = randomizeArray(imageURLs);
 
+    // Fetch and display the first chunk
+    let newImgObjs = await fetchInChunks(0, chunkSize, randomizedURLs);
+    addImagesToGrid(newImgObjs);
+
+    // Fetch and display the remaining chunks
     let fetchCount = Math.ceil(randomizedURLs.length / chunkSize);
-    for (let i = 0; i < fetchCount; i++) {
+    for (let i = 1; i < fetchCount; i++) {
       console.log(`Fetching chunk ${i + 1} of ${fetchCount}`);
-      let newImgObjs = await fetchInChunks(i * chunkSize, chunkSize, randomizedURLs);
+      newImgObjs = await fetchInChunks(i * chunkSize, chunkSize, randomizedURLs);
       console.log(`Fetched ${newImgObjs.length} images in chunk ${i + 1}`);
-      newImgObjs.forEach((imageURL) => {
-        const gridItem = createGridItem(imageURL);
-        grid.appendChild(gridItem);
-      });
+      addImagesToGrid(newImgObjs);
     }
-
-    const msnry = new Masonry("#grid", {
-    
-    horizontalOrder: true,
-    transitionDuration: 0
-
-    });
   } catch (error) {
     console.error("Error:", error);
   }
@@ -510,8 +584,14 @@ async function init() {
 
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
   init();
+  updateTopBoxHeight();
+  window.addEventListener('resize', () => {
+    updateTopBoxHeight();
+    adjustNavBarOnResize();
+  });
 });
 
 
@@ -521,14 +601,7 @@ document.querySelector('.motion-btn').addEventListener('click', motionScroll);
 document.querySelector('.contact-btn').addEventListener('click', toggleContact);
 
 window.addEventListener("scroll", adjustNavBarOnScroll);
-window.addEventListener("resize", adjustNavBarOnResize);
 
-document.addEventListener('DOMContentLoaded', () => {
-  updateTopBoxHeight();
-  window.addEventListener('resize', updateTopBoxHeight);
-  
-  
-});
 
 document.querySelector('.about-btn').addEventListener('click', toggleAbout);
 document.querySelector('.motion-btn').addEventListener('click', motionScroll);
