@@ -17,6 +17,7 @@ html {
   --MP-Dark-BG-color: #232323;
   --MP-hi-color: #d7ff45;
   --MP-gray: #727272;
+  --MP-text-light: #CDCDCD;
   --MP-text-color: rgba(0, 0, 0, 0.75);
 }
 
@@ -67,6 +68,7 @@ html {
 
 .underline {
   text-decoration: underline;
+  text-decoration-color: var(--MP-hi-color);
 }
 .under {
   text-decoration: underline;
@@ -87,7 +89,7 @@ html {
 body {
   background-color: var(--MP-BG-color);
   color: var(--MP-text-color);
-  height: 100%;
+  
 }
 bodycopy {
   font-size: 1.4rem;
@@ -105,7 +107,21 @@ bodycopy a {
 h1 {
   font-family: "Neue Machina", sans-serif;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 200;
+  padding: 0;
+  margin: 0;
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+  font-size: clamp(2rem, 5dvw, 6rem);
+  max-width: max(50%,80dvw);
+  line-height: 1;
+  color: var(--MP-text-light);
+  font-variation-settings: "slnt" 0, "MONO" 0;
+}
+h1-dark {
+  font-family: "Neue Machina", sans-serif;
+  font-style: normal;
+  font-weight: 500;
   padding: 0;
   margin: 0;
   font-size: 5vw;
@@ -120,13 +136,13 @@ h1 a {
   color: var(--MP-orange);
 }
 h2 {
-  font-family: "Neue Machina", Icons;
+  font-family: "Neue Montreal", Icons;
   font-style: normal;
   font-weight: 400;
   padding: 0;
   margin: 0;
-  color: var(--MP-text-color);
-  font-size: 2.2rem;
+  color: var(--MP-text-light);
+  font-size: 1rem;
   line-height: 1.2;
   font-variation-settings: "slnt" 0, "MONO" 0;
 }
@@ -135,13 +151,14 @@ h2 a {
 }
 small {
   display: inline-block;
-  font-size: 1.2vw;
-  line-height: 1.2vw;
+  font-size: clamp(0.8rem, 1dvw + 0.1rem, 2rem);
+  margin-top: 0.5rem;
   font-family: "Neue Machina", Icons;
   font-style: normal;
   font-weight: 400;
-  color: var(--MP-text-color);
+  color: var(--MP-text-light);
   font-variation-settings: "slnt" 0, "MONO" 1;
+  text-transform: uppercase;
 }
 a {
   text-decoration: none;
@@ -189,17 +206,19 @@ a:hover {
 /* || LAYOUT */
 
 .main-box {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  min-height: 100%; /* calc(100vh-120px); */
+  min-height: 100%;  */
 }
 .top-box {
   
-  justify-content: space-between;
-  min-height: calc(100vh - 120px);
+  
+  /* min-height: calc(100vh - 120px);
+  min-height: calc(100dvh - 120px); */
   background-color: var(--MP-Dark-BG-color);
   margin: 2rem 2rem 0 2rem;
   overflow: hidden;
+  overflow: -moz-hidden-unscrollable;
  
 }
 
@@ -290,33 +309,6 @@ a:hover {
 
 /* SECTIONS */
 
-.about-section.hidden .about-image {
-  display: none;
-}
-.about-image {  
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  right: 30px;
-  max-width: 1000px;
-  object-fit: contain;
-  
-}
-.about-section {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  right: 30px;
-  margin-bottom: 30px;
-  object-fit: contain;
-  
-  
-}
-.contact-section .hidden{
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100vh-120px);
-}
 
 /* || NAVIGATION */
 
@@ -332,7 +324,7 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   z-index: 500;
-  padding: 0 40px 0 40px;
+
   /*box-sizing: border-box;*/
   background-color: var(--MP-BG-color);
   opacity: 1;
@@ -342,18 +334,19 @@ a:hover {
 /* orange tab on the left, freely moving on-top of nav-bar position */
 .orange-tab {
   position: absolute;
-  left: -30px;
-  bottom: 10px;
+  left: -2rem;
+  top: -15px;
   width: 10px;
+  
   height: 60px;
   background-color: var(--MP-orange);
 }
 .left-column {
   display: flex;
   position: relative; /* Add relative positioning */
-  height: 80px;
-  margin-left: -10px;
   
+  margin-left: 2rem;
+  justify-content: flex-start;
 }
 
 
@@ -379,10 +372,11 @@ a:hover {
 /* logo */
 
 .logo {
-  
+  padding-left: 0px;
   position: relative;
-  align-self: center;
-  width: min(20vw, 10rem);
+  align-self: left;
+  padding: 0;
+  width: min(25dvw, 10rem);
   cursor: pointer; /* Set the default cursor style */
 
 }
@@ -403,7 +397,8 @@ a:hover {
   align-items: right;
   gap: 0;
   padding: 0;
-  margin-right: -0.9em;
+  margin: 0;
+  margin-right: 1.5rem;
 }
 /* inside right-column */
 
@@ -424,14 +419,97 @@ a:hover {
   font-weight: bold;
 }
 
-.hidden {
+
+/* || ABOUT */
+.about-section.hidden .about-image {
   display: none;
+  
 }
+
+.about-section {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-end;
+  height: 100%;
+}
+
+
+.main-about {  display: grid;
+  
+  /* grid-template-columns: 0.1fr 1.8fr; */
+  /* grid-template-rows: auto 1fr 1.5fr 0.8fr 1.1fr; */
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  align-content: end;
+  justify-items: stretch;
+  
+  /* min-height: 100dvh; */
+  min-height: calc(100dvh-120px);
+}
+.skull-about { 
+  grid-area: 1 / 1 / 2 / 2; 
+  width: clamp(2rem, 5dvw, 6rem);
+
+}
+.sub-about {
+  display: grid;
+  align-content: end;
+  height: clamp(2rem, 5dvw, 6rem);
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.h1 { 
+  grid-area: 3 / 2 / 3 / 3; 
+}
+
+.row-about { 
+  grid-area: 4 / 2 / 5 / 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: max(1rem, 2dvh);
+  margin-top: 1rem;
+  margin-right: 1rem;
+  align-items: flex-start;
+ }
+
+.arrow-about { 
+  /* height: auto;
+  height: clamp(5rem, 5dvh+0.5rem, 10rem); */
+  grid-area: 5 / 1 / 6 / 2; 
+  height: clamp(2rem, 5dvw, 6rem);
+  align-self: end;
+  rotate: 90deg;
+  
+}
+
+
+
+
+
+.vertical-space { grid-area: 3 / 1 / 5 / 2; }
+
+
+
+
+.small-about {
+  
+  max-width: clamp(250px, 40dvw, 600px);
+}
+
+
+
+
+
+
 
 
 /* || CONTACT INSIDE HELLO */
 
-
+.contact-section .hidden{
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100dvh-120px);
+}
 
 .contact-orange-skull{
   display: flex;
@@ -523,7 +601,9 @@ input, textarea {
   height: 20vh; /* You can adjust this value to your preferred height */
   resize: none; /* Disables the ability for users to resize the textarea */
 }
+
 /* || GRID AREA */
+
 .grid-box {
  margin: 60px 30px 0 30px; /* Add 60px margin-top */
  overflow: hidden; 
@@ -544,7 +624,7 @@ input, textarea {
   overflow: hidden; 
   position: relative; 
   break-inside: avoid; /* Avoid breaking inside grid items */
-  
+
 
 }
 
@@ -614,6 +694,11 @@ input, textarea {
 }
 
 
+.hidden {
+  display: none;
+}
+
+
 /* || ANIMATIONS || */
 
 
@@ -677,26 +762,34 @@ input, textarea {
   #grid .grid-item {
     width: 33.333%;
     }
+    .small-about{
+      max-width: clamp(250px, 60dvw, 600px);
+      
+    }
+   
+    
   }
-
+  
 /* Phone */
 
 @media screen and (max-width: 600px) {
   #grid .grid-item {
     width: 50%;
+    
    }
-  .top-box {
-    margin: 5vw 5vw 0 5vw;  
-  }
+  
   .logo {
-    width: min(25vw, 20rem);
+    width: clamp(7rem, 25dvw, 12rem);
+  }
+  .left-column{
+    margin-left: 2rem;
   }
   .logo img {
     content: url("images/MP Logomark Single Line Small.svg"); /* Replace with the path to your mobile image */
   }
-
+  
   .curiosity-text {
-    top: 2vw;
+  top: 2vw;
   right: 5vw;
   }
 }
@@ -711,5 +804,11 @@ input, textarea {
     top: 1vw;
   
   }
+  .right-column{
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+  
 }
 

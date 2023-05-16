@@ -49,9 +49,8 @@ async function fetchImageURLs() {
   const folderPath = "images/images-grid";
   const repoName = "ModernPeople-website";
   const userName = "vanguard-mp";
-  const apiKey = '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';
   try {
-    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}?api_key=${apiKey}`);
+    const response = await fetch(`https://api.github.com/repos/${userName}/${repoName}/contents/${folderPath}`);
 
     if (!response.ok) {
       throw new Error(`Error fetching image URLs: ${response.statusText}`);
@@ -264,8 +263,10 @@ function toggleContact() {
   const slideShow = document.getElementById('slideShow');
 
   if (contactSection.classList.contains('hidden')) {
-    contactSection.classList.remove('hidden');
     aboutSection.classList.add('hidden');
+    console.log(aboutSection.style.display);
+    contactSection.classList.remove('hidden');
+    
     slideShow.classList.add('hidden');
     activateButton(contactBtn);
     deactivateButtons([aboutBtn, motionBtn]);
@@ -399,6 +400,7 @@ function updateTopBoxHeight() {
   const windowHeight = window.innerHeight;
   const topBox = document.getElementById('topBox');
   topBox.style.height = (windowHeight - 120) + 'px';
+
 }
 
 /* SKULL AND LOGOTYPE FUNCTIONS */
@@ -452,7 +454,7 @@ const logoSrc = logo.src;
 // Define the paths to the orange versions of the images
 
 //const orangeSkullSrc = 'images/MP-Skull-orange.png'; // Replace with the path to the orange skull image
-const orangeLogoSrc = 'images/MP-Logotype-Orange.png'; // Replace with the path to the orange logo image
+const orangeLogoSrc = 'images/MP Logomark Single Line Large-Orange.svg'; // Replace with the path to the orange logo image
 
 // Swap the image source on hover
 
@@ -496,9 +498,10 @@ async function init() {
     }
 
     const msnry = new Masonry("#grid", {
-      itemSelector: ".grid-item",
-      gutter: 0,
-      percentPosition: true,
+    
+    horizontalOrder: true,
+    transitionDuration: 0
+
     });
   } catch (error) {
     console.error("Error:", error);
