@@ -10,7 +10,7 @@ const contactSection = document.getElementById('contactSection');
 const slideShow = document.getElementById('slideShow');
 const topBox = document.getElementById('topBox');
 const grid = document.getElementById("grid");
-
+const orangeTab = document.querySelector("orange-tab");
 
 /* FETCHING IMAGES FROM GITHUB REPO */
 
